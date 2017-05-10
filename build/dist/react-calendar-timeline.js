@@ -55,13 +55,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _Timeline = __webpack_require__(1);
-	
+
 	var _Timeline2 = _interopRequireDefault(_Timeline);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -73,65 +73,65 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(2);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _moment = __webpack_require__(3);
-	
+
 	var _moment2 = _interopRequireDefault(_moment);
-	
+
 	__webpack_require__(4);
-	
+
 	var _Items = __webpack_require__(8);
-	
+
 	var _Items2 = _interopRequireDefault(_Items);
-	
+
 	var _InfoLabel = __webpack_require__(12);
-	
+
 	var _InfoLabel2 = _interopRequireDefault(_InfoLabel);
-	
+
 	var _Sidebar = __webpack_require__(15);
-	
+
 	var _Sidebar2 = _interopRequireDefault(_Sidebar);
-	
+
 	var _Header = __webpack_require__(16);
-	
+
 	var _Header2 = _interopRequireDefault(_Header);
-	
+
 	var _VerticalLines = __webpack_require__(17);
-	
+
 	var _VerticalLines2 = _interopRequireDefault(_VerticalLines);
-	
+
 	var _HorizontalLines = __webpack_require__(18);
-	
+
 	var _HorizontalLines2 = _interopRequireDefault(_HorizontalLines);
-	
+
 	var _TodayLine = __webpack_require__(19);
-	
+
 	var _TodayLine2 = _interopRequireDefault(_TodayLine);
-	
+
 	var _utils = __webpack_require__(11);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var defaultKeys = {
 	  groupIdKey: 'id',
 	  groupTitleKey: 'title',
@@ -142,7 +142,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  itemTimeStartKey: 'start_time',
 	  itemTimeEndKey: 'end_time'
 	};
-	
+
 	var defaultTimeSteps = {
 	  second: 1,
 	  minute: 1,
@@ -151,20 +151,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	  month: 1,
 	  year: 1
 	};
-	
+
 	var ReactCalendarTimeline = function (_Component) {
 	  _inherits(ReactCalendarTimeline, _Component);
-	
+
 	  function ReactCalendarTimeline(props) {
 	    _classCallCheck(this, ReactCalendarTimeline);
-	
+
 	    var _this = _possibleConstructorReturn(this, (ReactCalendarTimeline.__proto__ || Object.getPrototypeOf(ReactCalendarTimeline)).call(this, props));
-	
+
 	    _initialiseProps.call(_this);
-	
+
 	    var visibleTimeStart = null;
 	    var visibleTimeEnd = null;
-	
+
 	    if (_this.props.defaultTimeStart && _this.props.defaultTimeEnd) {
 	      visibleTimeStart = _this.props.defaultTimeStart.valueOf();
 	      visibleTimeEnd = _this.props.defaultTimeEnd.valueOf();
@@ -178,24 +178,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	      visibleTimeEnd = Math.max.apply(Math, _toConsumableArray(_this.props.items.map(function (item) {
 	        return (0, _utils._get)(item, 'end').getTime();
 	      })));
-	
+
 	      if (!visibleTimeStart || !visibleTimeEnd) {
 	        visibleTimeStart = new Date().getTime() - 86400 * 7 * 1000;
 	        visibleTimeEnd = new Date().getTime() + 86400 * 7 * 1000;
 	      }
-	
+
 	      if (_this.props.onTimeInit) {
 	        _this.props.onTimeInit(visibleTimeStart, visibleTimeEnd);
 	      }
 	    }
-	
+
 	    _this.state = {
 	      width: 1000,
-	
+
 	      visibleTimeStart: visibleTimeStart,
 	      visibleTimeEnd: visibleTimeEnd,
 	      canvasTimeStart: visibleTimeStart - (visibleTimeEnd - visibleTimeStart),
-	
+
 	      selectedItem: null,
 	      dragTime: null,
 	      dragGroupTitle: null,
@@ -205,37 +205,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	      resizingItem: null,
 	      resizingEdge: null
 	    };
-	
+
 	    var _this$stackItems = _this.stackItems(props.items, props.groups, _this.state.canvasTimeStart, _this.state.visibleTimeStart, _this.state.visibleTimeEnd, _this.state.width),
 	        dimensionItems = _this$stackItems.dimensionItems,
 	        height = _this$stackItems.height,
 	        groupHeights = _this$stackItems.groupHeights,
 	        groupTops = _this$stackItems.groupTops;
-	
+
 	    _this.state.dimensionItems = dimensionItems;
 	    _this.state.height = height;
 	    _this.state.groupHeights = groupHeights;
 	    _this.state.groupTops = groupTops;
 	    return _this;
 	  }
-	
+
 	  _createClass(ReactCalendarTimeline, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var _this2 = this;
-	
+
 	      this.resize();
-	
+
 	      this.resizeEventListener = {
 	        handleEvent: function handleEvent(event) {
 	          _this2.resize();
 	        }
 	      };
-	
+
 	      window.addEventListener('resize', this.resizeEventListener);
-	
+
 	      this.lastTouchDistance = null;
-	
+
 	      this.refs.scrollComponent.addEventListener('touchstart', this.touchStart);
 	      this.refs.scrollComponent.addEventListener('touchmove', this.touchMove);
 	      this.refs.scrollComponent.addEventListener('touchend', this.touchEnd);
@@ -255,15 +255,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _refs$container$getBo = this.refs.container.getBoundingClientRect(),
 	          containerWidth = _refs$container$getBo.width,
 	          containerTop = _refs$container$getBo.top;
-	
+
 	      var width = containerWidth - this.props.sidebarWidth;
-	
+
 	      var _stackItems = this.stackItems(this.props.items, this.props.groups, this.state.canvasTimeStart, this.state.visibleTimeStart, this.state.visibleTimeEnd, width),
 	          dimensionItems = _stackItems.dimensionItems,
 	          height = _stackItems.height,
 	          groupHeights = _stackItems.groupHeights,
 	          groupTops = _stackItems.groupTops;
-	
+
 	      this.setState({
 	        width: width,
 	        topOffset: containerTop + window.pageYOffset,
@@ -281,12 +281,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	          visibleTimeEnd = nextProps.visibleTimeEnd,
 	          items = nextProps.items,
 	          groups = nextProps.groups;
-	
-	
+
+
 	      if (visibleTimeStart && visibleTimeEnd) {
 	        this.updateScrollCanvas(visibleTimeStart, visibleTimeEnd, items !== this.props.items || groups !== this.props.groups, items, groups);
 	      }
-	
+
 	      if (items !== this.props.items || groups !== this.props.groups) {
 	        this.updateDimensions(items, groups);
 	      }
@@ -299,30 +299,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	          visibleTimeStart = _state.visibleTimeStart,
 	          visibleTimeEnd = _state.visibleTimeEnd,
 	          width = _state.width;
-	
+
 	      var _stackItems2 = this.stackItems(items, groups, canvasTimeStart, visibleTimeStart, visibleTimeEnd, width),
 	          dimensionItems = _stackItems2.dimensionItems,
 	          height = _stackItems2.height,
 	          groupHeights = _stackItems2.groupHeights,
 	          groupTops = _stackItems2.groupTops;
-	
+
 	      this.setState({ dimensionItems: dimensionItems, height: height, groupHeights: groupHeights, groupTops: groupTops });
 	    }
-	
+
 	    // called when the visible time changes
-	
+
 	  }, {
 	    key: 'zoomIn',
 	    value: function zoomIn(e) {
 	      e.preventDefault();
-	
+
 	      this.changeZoom(0.75);
 	    }
 	  }, {
 	    key: 'zoomOut',
 	    value: function zoomOut(e) {
 	      e.preventDefault();
-	
+
 	      this.changeZoom(1.25);
 	    }
 	  }, {
@@ -332,11 +332,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _props = this.props,
 	          minZoom = _props.minZoom,
 	          maxZoom = _props.maxZoom;
-	
+
 	      var oldZoom = this.state.visibleTimeEnd - this.state.visibleTimeStart;
 	      var newZoom = Math.min(Math.max(Math.round(oldZoom * scale), minZoom), maxZoom); // min 1 min, max 20 years
 	      var newVisibleTimeStart = Math.round(this.state.visibleTimeStart + (oldZoom - newZoom) * offset);
-	
+
 	      this.props.onTimeChange.bind(this)(newVisibleTimeStart, newVisibleTimeStart + newZoom, this.updateScrollCanvas);
 	    }
 	  }, {
@@ -349,16 +349,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	          width = _state2.width,
 	          visibleTimeStart = _state2.visibleTimeStart,
 	          visibleTimeEnd = _state2.visibleTimeEnd;
-	
-	
+
+
 	      var parentPosition = (0, _utils.getParentPosition)(e.currentTarget);
 	      var x = e.clientX - parentPosition.x;
 	      var y = e.clientY - parentPosition.y;
-	
+
 	      var row = Math.floor((y - lineHeight * 2) / lineHeight);
 	      var time = Math.round(visibleTimeStart + x / width * (visibleTimeEnd - visibleTimeStart));
 	      time = Math.floor(time / dragSnap) * dragSnap;
-	
+
 	      return [row, time];
 	    }
 	  }, {
@@ -436,13 +436,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'infoLabel',
 	    value: function infoLabel() {
 	      var label = null;
-	
+
 	      if (this.state.dragTime) {
 	        label = (0, _moment2.default)(this.state.dragTime).format('LLL') + ', ' + this.state.dragGroupTitle;
 	      } else if (this.state.resizeTime) {
 	        label = (0, _moment2.default)(this.state.resizeTime).format('LLL');
 	      }
-	
+
 	      return label ? _react2.default.createElement(_InfoLabel2.default, { label: label }) : '';
 	    }
 	  }, {
@@ -471,13 +471,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _Sidebar2.default,
 	        { groups: this.props.groups,
 	          keys: this.props.keys,
-	
+
 	          width: this.props.sidebarWidth,
 	          lineHeight: this.props.lineHeight,
 	          groupHeights: groupHeights,
 	          height: height,
 	          headerHeight: headerHeight,
-	
+
 	          fixedHeader: this.props.fixedHeader,
 	          zIndex: this.props.zIndexStart + 2 },
 	        this.props.children
@@ -502,15 +502,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	          resizingEdge = _state3.resizingEdge,
 	          resizeTime = _state3.resizeTime,
 	          newGroupOrder = _state3.newGroupOrder;
-	
+
 	      var zoom = visibleTimeEnd - visibleTimeStart;
 	      var canvasTimeEnd = canvasTimeStart + zoom * 3;
 	      var canvasWidth = width * 3;
 	      var headerHeight = headerLabelGroupHeight + headerLabelHeight;
-	
+
 	      var visibleItems = (0, _utils.getVisibleItems)(items, canvasTimeStart, canvasTimeEnd, keys);
 	      var groupOrders = (0, _utils.getGroupOrders)(groups, keys);
-	
+
 	      var dimensionItems = visibleItems.map(function (item) {
 	        return {
 	          id: (0, _utils._get)(item, keys.itemIdKey),
@@ -538,14 +538,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }).filter(function (i) {
 	        return i.dimensions;
 	      });
-	
+
 	      var stackingMethod = stackItems ? _utils.stack : _utils.nostack;
-	
+
 	      var _stackingMethod = stackingMethod(dimensionItems, groupOrders, lineHeight, headerHeight),
 	          height = _stackingMethod.height,
 	          groupHeights = _stackingMethod.groupHeights,
 	          groupTops = _stackingMethod.groupTops;
-	
+
 	      return { dimensionItems: dimensionItems, height: height, groupHeights: groupHeights, groupTops: groupTops };
 	    }
 	  }, {
@@ -571,13 +571,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	          height = _state5.height,
 	          groupHeights = _state5.groupHeights,
 	          groupTops = _state5.groupTops;
-	
+
 	      var zoom = visibleTimeEnd - visibleTimeStart;
 	      var canvasTimeEnd = canvasTimeStart + zoom * 3;
 	      var canvasWidth = width * 3;
 	      var minUnit = (0, _utils.getMinUnit)(zoom, width, timeSteps);
 	      var headerHeight = headerLabelGroupHeight + headerLabelHeight;
-	
+
 	      if (draggingItem || resizingItem) {
 	        var stackResults = this.stackItems(items, groups, canvasTimeStart, visibleTimeStart, visibleTimeEnd, width);
 	        dimensionItems = stackResults.dimensionItems;
@@ -585,22 +585,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	        groupHeights = stackResults.groupHeights;
 	        groupTops = stackResults.groupTops;
 	      }
-	
+
 	      var outerComponentStyle = {
 	        height: height + 'px'
 	      };
-	
+
 	      var scrollComponentStyle = {
 	        width: width + 'px',
 	        height: height + 20 + 'px',
 	        cursor: isDragging ? 'move' : 'default'
 	      };
-	
+
 	      var canvasComponentStyle = {
 	        width: canvasWidth + 'px',
 	        height: height + 'px'
 	      };
-	
+
 	      return _react2.default.createElement(
 	        'div',
 	        { style: this.props.style, ref: 'container', className: 'react-calendar-timeline' },
@@ -638,10 +638,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      );
 	    }
 	  }]);
-	
+
 	  return ReactCalendarTimeline;
 	}(_react.Component);
-	
+
 	ReactCalendarTimeline.propTypes = {
 	  groups: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.object]).isRequired,
 	  items: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.object]).isRequired,
@@ -655,24 +655,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	  headerLabelGroupHeight: _react.PropTypes.number,
 	  headerLabelHeight: _react.PropTypes.number,
 	  itemHeightRatio: _react.PropTypes.number,
-	
+
 	  minZoom: _react.PropTypes.number,
 	  maxZoom: _react.PropTypes.number,
-	
+
 	  clickTolerance: _react.PropTypes.number,
-	
+
 	  canChangeGroup: _react.PropTypes.bool,
 	  canMove: _react.PropTypes.bool,
 	  canResize: _react.PropTypes.oneOf([true, false, 'left', 'right', 'both']),
 	  useResizeHandle: _react.PropTypes.bool,
 	  canSelect: _react.PropTypes.bool,
-	
+
 	  stackItems: _react.PropTypes.bool,
-	
+
 	  traditionalZoom: _react.PropTypes.bool,
-	
+
 	  itemTouchSendsClick: _react.PropTypes.bool,
-	
+
 	  onItemMove: _react.PropTypes.func,
 	  onItemResize: _react.PropTypes.func,
 	  onItemClick: _react.PropTypes.func,
@@ -681,25 +681,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	  onItemDoubleClick: _react.PropTypes.func,
 	  onItemContextMenu: _react.PropTypes.func,
 	  onCanvasDoubleClick: _react.PropTypes.func,
-	
+
 	  moveResizeValidator: _react.PropTypes.func,
-	
+
 	  dayBackground: _react.PropTypes.func,
-	
+
 	  style: _react.PropTypes.object,
 	  keys: _react.PropTypes.object,
-	
+
 	  timeSteps: _react.PropTypes.object,
-	
+
 	  defaultTimeStart: _react.PropTypes.object,
 	  defaultTimeEnd: _react.PropTypes.object,
-	
+
 	  visibleTimeStart: _react.PropTypes.number,
 	  visibleTimeEnd: _react.PropTypes.number,
 	  onTimeChange: _react.PropTypes.func,
 	  onTimeInit: _react.PropTypes.func,
 	  onBoundsChange: _react.PropTypes.func,
-	
+
 	  children: _react.PropTypes.node
 	};
 	ReactCalendarTimeline.defaultProps = {
@@ -713,22 +713,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	  headerLabelGroupHeight: 30,
 	  headerLabelHeight: 30,
 	  itemHeightRatio: 0.65,
-	
+
 	  minZoom: 60 * 60 * 1000, // 1 hour
 	  maxZoom: 5 * 365.24 * 86400 * 1000, // 5 years
-	
+
 	  clickTolerance: 3, // how many pixels can we drag for it to be still considered a click?
-	
+
 	  canChangeGroup: true,
 	  canMove: true,
 	  canResize: 'right',
 	  useResizeHandle: false,
 	  canSelect: true,
-	
+
 	  stackItems: false,
-	
+
 	  traditionalZoom: false,
-	
+
 	  onItemMove: null,
 	  onItemResize: null,
 	  onItemClick: null,
@@ -736,20 +736,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	  onCanvasClick: null,
 	  onItemDoubleClick: null,
 	  onItemContextMenu: null,
-	
+
 	  moveResizeValidator: null,
-	
+
 	  dayBackground: null,
-	
+
 	  defaultTimeStart: null,
 	  defaultTimeEnd: null,
-	
+
 	  itemTouchSendsClick: false,
-	
+
 	  style: {},
 	  keys: defaultKeys,
 	  timeSteps: defaultTimeSteps,
-	
+
 	  // if you pass in visibleTimeStart and visibleTimeEnd, you must also pass onTimeChange(visibleTimeStart, visibleTimeEnd),
 	  // which needs to update the props visibleTimeStart and visibleTimeEnd to the ones passed
 	  visibleTimeStart: null,
@@ -763,29 +763,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	  onBoundsChange: null,
 	  children: null
 	};
-	
+
 	var _initialiseProps = function _initialiseProps() {
 	  var _this3 = this;
-	
+
 	  this.touchStart = function (e) {
 	    if (e.touches.length === 2) {
 	      e.preventDefault();
-	
+
 	      _this3.lastTouchDistance = Math.abs(e.touches[0].screenX - e.touches[1].screenX);
 	      _this3.singleTouchStart = null;
 	      _this3.lastSingleTouch = null;
 	    } else if (e.touches.length === 1 && _this3.props.fixedHeader === 'fixed') {
 	      e.preventDefault();
-	
+
 	      var x = e.touches[0].clientX;
 	      var y = e.touches[0].clientY;
-	
+
 	      _this3.lastTouchDistance = null;
 	      _this3.singleTouchStart = { x: x, y: y, screenY: window.pageYOffset };
 	      _this3.lastSingleTouch = { x: x, y: y, screenY: window.pageYOffset };
 	    }
 	  };
-	
+
 	  this.touchMove = function (e) {
 	    if (_this3.state.dragTime || _this3.state.resizeTime) {
 	      e.preventDefault();
@@ -793,33 +793,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    if (_this3.lastTouchDistance && e.touches.length === 2) {
 	      e.preventDefault();
-	
+
 	      var touchDistance = Math.abs(e.touches[0].screenX - e.touches[1].screenX);
-	
+
 	      var parentPosition = (0, _utils.getParentPosition)(e.currentTarget);
 	      var xPosition = (e.touches[0].screenX + e.touches[1].screenX) / 2 - parentPosition.x;
-	
+
 	      if (touchDistance !== 0 && _this3.lastTouchDistance !== 0) {
 	        _this3.changeZoom(_this3.lastTouchDistance / touchDistance, xPosition / _this3.state.width);
 	        _this3.lastTouchDistance = touchDistance;
 	      }
 	    } else if (_this3.lastSingleTouch && e.touches.length === 1 && _this3.props.fixedHeader === 'fixed') {
 	      e.preventDefault();
-	
+
 	      var x = e.touches[0].clientX;
 	      var y = e.touches[0].clientY;
-	
+
 	      var deltaX = x - _this3.lastSingleTouch.x;
 	      // let deltaY = y - this.lastSingleTouch.y
-	
+
 	      var deltaX0 = x - _this3.singleTouchStart.x;
 	      var deltaY0 = y - _this3.singleTouchStart.y;
-	
+
 	      _this3.lastSingleTouch = { x: x, y: y };
-	
+
 	      var moveX = Math.abs(deltaX0) * 3 > Math.abs(deltaY0);
 	      var moveY = Math.abs(deltaY0) * 3 > Math.abs(deltaX0);
-	
+
 	      if (deltaX !== 0 && moveX) {
 	        _this3.refs.scrollComponent.scrollLeft -= deltaX;
 	      }
@@ -828,21 +828,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }
 	  };
-	
+
 	  this.touchEnd = function (e) {
 	    if (_this3.lastTouchDistance) {
 	      e.preventDefault();
-	
+
 	      _this3.lastTouchDistance = null;
 	    }
 	    if (_this3.lastSingleTouch) {
 	      e.preventDefault();
-	
+
 	      _this3.lastSingleTouch = null;
 	      _this3.singleTouchStart = null;
 	    }
 	  };
-	
+
 	  this.onScroll = function () {
 	    var scrollComponent = _this3.refs.scrollComponent;
 	    var canvasTimeStart = _this3.state.canvasTimeStart;
@@ -850,7 +850,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var zoom = _this3.state.visibleTimeEnd - _this3.state.visibleTimeStart;
 	    var width = _this3.state.width;
 	    var visibleTimeStart = canvasTimeStart + zoom * scrollX / width;
-	
+
 	    // move the virtual canvas if needed
 	    if (scrollX < _this3.state.width * 0.5) {
 	      _this3.setState({
@@ -864,12 +864,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	      });
 	      scrollComponent.scrollLeft -= _this3.state.width;
 	    }
-	
+
 	    if (_this3.state.visibleTimeStart !== visibleTimeStart || _this3.state.visibleTimeEnd !== visibleTimeStart + zoom) {
 	      _this3.props.onTimeChange.bind(_this3)(visibleTimeStart, visibleTimeStart + zoom, _this3.updateScrollCanvas);
 	    }
 	  };
-	
+
 	  this.updateScrollCanvas = function (visibleTimeStart, visibleTimeEnd, forceUpdateDimensions, updatedItems, updatedGroups) {
 	    var oldCanvasTimeStart = _this3.state.canvasTimeStart;
 	    var oldZoom = _this3.state.visibleTimeEnd - _this3.state.visibleTimeStart;
@@ -877,17 +877,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var items = updatedItems || _this3.props.items;
 	    var groups = updatedGroups || _this3.props.groups;
 	    var fullUpdate = _this3.props.fullUpdate;
-	
-	
+
+
 	    var newState = {
 	      visibleTimeStart: visibleTimeStart,
 	      visibleTimeEnd: visibleTimeEnd
 	    };
-	
+
 	    var resetCanvas = false;
-	
+
 	    var canKeepCanvas = visibleTimeStart >= oldCanvasTimeStart + oldZoom * 0.5 && visibleTimeStart <= oldCanvasTimeStart + oldZoom * 1.5 && visibleTimeEnd >= oldCanvasTimeStart + oldZoom * 1.5 && visibleTimeEnd <= oldCanvasTimeStart + oldZoom * 2.5;
-	
+
 	    // if new visible time is in the right canvas area
 	    if (canKeepCanvas) {
 	      // but we need to update the scroll
@@ -898,38 +898,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else {
 	      resetCanvas = true;
 	    }
-	
+
 	    if (resetCanvas) {
 	      // Todo: need to calculate new dimensions
 	      newState.canvasTimeStart = visibleTimeStart - newZoom;
 	      _this3.refs.scrollComponent.scrollLeft = _this3.state.width;
-	
+
 	      if (_this3.props.onBoundsChange) {
 	        _this3.props.onBoundsChange(newState.canvasTimeStart, newState.canvasTimeStart + newZoom * 3);
 	      }
 	    }
-	
+
 	    if (resetCanvas || forceUpdateDimensions || fullUpdate) {
 	      var canvasTimeStart = newState.canvasTimeStart ? newState.canvasTimeStart : oldCanvasTimeStart;
-	
+
 	      var _stackItems3 = _this3.stackItems(items, groups, canvasTimeStart, visibleTimeStart, visibleTimeEnd, _this3.state.width, fullUpdate),
 	          dimensionItems = _stackItems3.dimensionItems,
 	          height = _stackItems3.height,
 	          groupHeights = _stackItems3.groupHeights,
 	          groupTops = _stackItems3.groupTops;
-	
+
 	      newState.dimensionItems = dimensionItems;
 	      newState.height = height;
 	      newState.groupHeights = groupHeights;
 	      newState.groupTops = groupTops;
 	    }
-	
+
 	    _this3.setState(newState);
 	  };
-	
+
 	  this.onWheel = function (e) {
 	    var traditionalZoom = _this3.props.traditionalZoom;
-	
+
 	    if (e.ctrlKey) {
 	      e.preventDefault();
 	      var parentPosition = (0, _utils.getParentPosition)(e.currentTarget);
@@ -962,29 +962,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }
 	  };
-	
+
 	  this.showPeriod = function (from, unit) {
 	    var visibleTimeStart = from.valueOf();
 	    var visibleTimeEnd = (0, _moment2.default)(from).add(1, unit).valueOf();
 	    var zoom = visibleTimeEnd - visibleTimeStart;
-	
+
 	    // can't zoom in more than to show one hour
-	    if (zoom < 360000) {
+	    if (zoom < minZoom) {
 	      return;
 	    }
-	
+
 	    // clicked on the big header and already focused here, zoom out
 	    if (unit !== 'year' && _this3.state.visibleTimeStart === visibleTimeStart && _this3.state.visibleTimeEnd === visibleTimeEnd) {
 	      var nextUnit = (0, _utils.getNextUnit)(unit);
-	
+
 	      visibleTimeStart = from.startOf(nextUnit).valueOf();
 	      visibleTimeEnd = (0, _moment2.default)(visibleTimeStart).add(1, nextUnit);
 	      zoom = visibleTimeEnd - visibleTimeStart;
 	    }
-	
+
 	    _this3.props.onTimeChange.bind(_this3)(visibleTimeStart, visibleTimeStart + zoom, _this3.updateScrollCanvas);
 	  };
-	
+
 	  this.selectItem = function (item, clickType, e) {
 	    if (_this3.state.selectedItem === item || _this3.props.itemTouchSendsClick && clickType === 'touch') {
 	      if (item && _this3.props.onItemClick) {
@@ -997,10 +997,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }
 	  };
-	
+
 	  this.scrollAreaClick = function (e) {
 	    // if not clicking on an item
-	
+
 	    if (!(0, _utils.hasSomeParentTheClass)(e.target, 'rct-item')) {
 	      if (_this3.state.selectedItem) {
 	        _this3.selectItem(null);
@@ -1009,7 +1009,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _rowAndTimeFromEvent2 = _slicedToArray(_rowAndTimeFromEvent, 2),
 	            row = _rowAndTimeFromEvent2[0],
 	            time = _rowAndTimeFromEvent2[1];
-	
+
 	        if (row >= 0 && row < _this3.props.groups.length) {
 	          var groupId = (0, _utils._get)(_this3.props.groups[row], _this3.props.keys.groupIdKey);
 	          _this3.props.onCanvasClick(groupId, time, e);
@@ -1017,11 +1017,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }
 	  };
-	
+
 	  this.dragItem = function (item, dragTime, newGroupOrder) {
 	    var newGroup = _this3.props.groups[newGroupOrder];
 	    var keys = _this3.props.keys;
-	
+
 	    _this3.setState({
 	      draggingItem: item,
 	      dragTime: dragTime,
@@ -1029,14 +1029,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	      dragGroupTitle: newGroup ? (0, _utils._get)(newGroup, keys.groupTitleKey) : ''
 	    });
 	  };
-	
+
 	  this.dropItem = function (item, dragTime, newGroupOrder) {
 	    _this3.setState({ draggingItem: null, dragTime: null, dragGroupTitle: null });
 	    if (_this3.props.onItemMove) {
 	      _this3.props.onItemMove(item, dragTime, newGroupOrder);
 	    }
 	  };
-	
+
 	  this.resizingItem = function (item, resizeTime, edge) {
 	    _this3.setState({
 	      resizingItem: item,
@@ -1044,46 +1044,46 @@ return /******/ (function(modules) { // webpackBootstrap
 	      resizeTime: resizeTime
 	    });
 	  };
-	
+
 	  this.resizedItem = function (item, resizeTime, edge) {
 	    _this3.setState({ resizingItem: null, resizingEdge: null, resizeTime: null });
 	    if (_this3.props.onItemResize) {
 	      _this3.props.onItemResize(item, resizeTime, edge);
 	    }
 	  };
-	
+
 	  this.handleMouseDown = function (e) {
 	    var topOffset = _this3.state.topOffset;
 	    var pageY = e.pageY;
 	    var _props5 = _this3.props,
 	        headerLabelGroupHeight = _props5.headerLabelGroupHeight,
 	        headerLabelHeight = _props5.headerLabelHeight;
-	
+
 	    var headerHeight = headerLabelGroupHeight + headerLabelHeight;
-	
+
 	    if (pageY - topOffset > headerHeight) {
 	      _this3.setState({ isDragging: true, dragStartPosition: e.pageX, dragLastPosition: e.pageX });
 	    }
 	  };
-	
+
 	  this.handleMouseMove = function (e) {
 	    if (_this3.state.isDragging && !_this3.state.draggingItem && !_this3.state.resizingItem) {
 	      _this3.refs.scrollComponent.scrollLeft += _this3.state.dragLastPosition - e.pageX;
 	      _this3.setState({ dragLastPosition: e.pageX });
 	    }
 	  };
-	
+
 	  this.handleMouseUp = function (e) {
 	    var dragStartPosition = _this3.state.dragStartPosition;
-	
-	
+
+
 	    if (Math.abs(dragStartPosition - e.pageX) <= _this3.props.clickTolerance) {
 	      _this3.scrollAreaClick(e);
 	    }
-	
+
 	    _this3.setState({ isDragging: false, dragStartPosition: null, dragLastPosition: null });
 	  };
-	
+
 	  this.handleDoubleClick = function (e) {
 	    var _state6 = _this3.state,
 	        canvasTimeStart = _state6.canvasTimeStart,
@@ -1092,29 +1092,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	        visibleTimeEnd = _state6.visibleTimeEnd,
 	        groupTops = _state6.groupTops,
 	        topOffset = _state6.topOffset;
-	
+
 	    var zoom = visibleTimeEnd - visibleTimeStart;
 	    var canvasTimeEnd = canvasTimeStart + zoom * 3;
 	    var canvasWidth = width * 3;
 	    var pageX = e.pageX,
 	        pageY = e.pageY;
-	
+
 	    var ratio = (canvasTimeEnd - canvasTimeStart) / canvasWidth;
 	    var boundingRect = _this3.refs.scrollComponent.getBoundingClientRect();
 	    var timePosition = visibleTimeStart + ratio * (pageX - boundingRect.left);
 	    if (_this3.props.dragSnap) {
 	      timePosition = Math.round(timePosition / _this3.props.dragSnap) * _this3.props.dragSnap;
 	    }
-	
+
 	    var groupIndex = 0;
 	    var _iteratorNormalCompletion = true;
 	    var _didIteratorError = false;
 	    var _iteratorError = undefined;
-	
+
 	    try {
 	      for (var _iterator = Object.keys(groupTops)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	        var key = _step.value;
-	
+
 	        var item = groupTops[key];
 	        if (pageY - topOffset > item) {
 	          groupIndex = parseInt(key, 10);
@@ -1136,13 +1136,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	      }
 	    }
-	
+
 	    if (_this3.props.onCanvasDoubleClick) {
 	      _this3.props.onCanvasDoubleClick(_this3.props.groups[groupIndex], timePosition, e);
 	    }
 	  };
 	};
-	
+
 	exports.default = ReactCalendarTimeline;
 
 /***/ },
@@ -1171,51 +1171,51 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(2);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _Item = __webpack_require__(9);
-	
+
 	var _Item2 = _interopRequireDefault(_Item);
-	
+
 	var _utils = __webpack_require__(11);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	// import ItemGroup from './ItemGroup'
-	
+
 	var canResizeLeft = function canResizeLeft(item, canResize) {
 	  var value = (0, _utils._get)(item, 'canResize') !== undefined ? (0, _utils._get)(item, 'canResize') : undefined.props.canResize;
 	  return value === 'left' || value === 'both';
 	};
-	
+
 	var canResizeRight = function canResizeRight(item, canResize) {
 	  var value = (0, _utils._get)(item, 'canResize') !== undefined ? (0, _utils._get)(item, 'canResize') : undefined.props.canResize;
 	  return value === 'right' || value === 'both' || value === true;
 	};
-	
+
 	var Items = function (_Component) {
 	  _inherits(Items, _Component);
-	
+
 	  function Items() {
 	    _classCallCheck(this, Items);
-	
+
 	    return _possibleConstructorReturn(this, (Items.__proto__ || Object.getPrototypeOf(Items)).apply(this, arguments));
 	  }
-	
+
 	  _createClass(Items, [{
 	    key: 'shouldComponentUpdate',
 	    value: function shouldComponentUpdate(nextProps, nextState) {
@@ -1225,14 +1225,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'getGroupOrders',
 	    value: function getGroupOrders() {
 	      var groupIdKey = this.props.keys.groupIdKey;
-	
-	
+
+
 	      var groupOrders = {};
-	
+
 	      for (var i = 0; i < this.props.groups.length; i++) {
 	        groupOrders[(0, _utils._get)(this.props.groups[i], groupIdKey)] = i;
 	      }
-	
+
 	      return groupOrders;
 	    }
 	  }, {
@@ -1241,8 +1241,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _props$keys = this.props.keys,
 	          itemTimeStartKey = _props$keys.itemTimeStartKey,
 	          itemTimeEndKey = _props$keys.itemTimeEndKey;
-	
-	
+
+
 	      return this.props.items.filter(function (item) {
 	        return (0, _utils._get)(item, itemTimeStartKey) <= canvasTimeEnd && (0, _utils._get)(item, itemTimeEndKey) >= canvasTimeStart;
 	      });
@@ -1251,7 +1251,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
-	
+
 	      var _props = this.props,
 	          canvasTimeStart = _props.canvasTimeStart,
 	          canvasTimeEnd = _props.canvasTimeEnd,
@@ -1259,12 +1259,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _props$keys2 = this.props.keys,
 	          itemIdKey = _props$keys2.itemIdKey,
 	          itemGroupKey = _props$keys2.itemGroupKey;
-	
-	
+
+
 	      var groupOrders = this.getGroupOrders();
 	      var visibleItems = this.getVisibleItems(canvasTimeStart, canvasTimeEnd, groupOrders);
 	      var sortedDimensionItems = (0, _utils.keyBy)(dimensionItems, 'id');
-	
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'rct-items' },
@@ -1304,37 +1304,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	      );
 	    }
 	  }]);
-	
+
 	  return Items;
 	}(_react.Component);
-	
+
 	Items.propTypes = {
 	  groups: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.object]).isRequired,
 	  items: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.object]).isRequired,
-	
+
 	  canvasTimeStart: _react.PropTypes.number.isRequired,
 	  canvasTimeEnd: _react.PropTypes.number.isRequired,
 	  canvasWidth: _react.PropTypes.number.isRequired,
 	  lineHeight: _react.PropTypes.number.isRequired,
-	
+
 	  dragSnap: _react.PropTypes.number,
 	  minResizeWidth: _react.PropTypes.number,
 	  selectedItem: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]),
-	
+
 	  canChangeGroup: _react.PropTypes.bool.isRequired,
 	  canMove: _react.PropTypes.bool.isRequired,
 	  canResize: _react.PropTypes.oneOf([true, false, 'left', 'right', 'both']),
 	  canSelect: _react.PropTypes.bool,
-	
+
 	  keys: _react.PropTypes.object.isRequired,
-	
+
 	  moveResizeValidator: _react.PropTypes.func,
 	  itemSelect: _react.PropTypes.func,
 	  itemDrag: _react.PropTypes.func,
 	  itemDrop: _react.PropTypes.func,
 	  itemResizing: _react.PropTypes.func,
 	  itemResized: _react.PropTypes.func,
-	
+
 	  onItemDoubleClick: _react.PropTypes.func,
 	  onItemContextMenu: _react.PropTypes.func
 	};
@@ -1346,76 +1346,76 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(2);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _interact = __webpack_require__(10);
-	
+
 	var _interact2 = _interopRequireDefault(_interact);
-	
+
 	var _moment = __webpack_require__(3);
-	
+
 	var _moment2 = _interopRequireDefault(_moment);
-	
+
 	var _utils = __webpack_require__(11);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var Item = function (_Component) {
 	  _inherits(Item, _Component);
-	
+
 	  // removed prop type check for SPEED!
 	  // they are coming from a trusted component anyway
 	  // (this complicates performance debugging otherwise)
 	  function Item(props) {
 	    _classCallCheck(this, Item);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Item.__proto__ || Object.getPrototypeOf(Item)).call(this, props));
-	
+
 	    _this.onMouseDown = function (e) {
 	      if (!_this.state.interactMounted) {
 	        e.preventDefault();
 	        _this.startedClicking = true;
 	      }
 	    };
-	
+
 	    _this.onMouseUp = function (e) {
 	      if (!_this.state.interactMounted && _this.startedClicking) {
 	        _this.startedClicking = false;
 	        _this.actualClick(e, 'click');
 	      }
 	    };
-	
+
 	    _this.onTouchStart = function (e) {
 	      if (!_this.state.interactMounted) {
 	        e.preventDefault();
 	        _this.startedTouching = true;
 	      }
 	    };
-	
+
 	    _this.onTouchEnd = function (e) {
 	      if (!_this.state.interactMounted && _this.startedTouching) {
 	        _this.startedTouching = false;
 	        _this.actualClick(e, 'touch');
 	      }
 	    };
-	
+
 	    _this.handleDoubleClick = function (e) {
 	      e.preventDefault();
 	      e.stopPropagation();
@@ -1423,7 +1423,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _this.props.onItemDoubleClick(_this.itemId, e);
 	      }
 	    };
-	
+
 	    _this.handleContextMenu = function (e) {
 	      if (_this.props.onContextMenu) {
 	        e.preventDefault();
@@ -1431,18 +1431,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _this.props.onContextMenu(_this.itemId, e);
 	      }
 	    };
-	
+
 	    _this.cacheDataFromProps(props);
-	
+
 	    _this.state = {
 	      interactMounted: false,
-	
+
 	      dragging: null,
 	      dragStart: null,
 	      preDragPosition: null,
 	      dragTime: null,
 	      dragGroupDelta: null,
-	
+
 	      resizing: null,
 	      resizeEdge: null,
 	      resizeStart: null,
@@ -1450,7 +1450,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	    return _this;
 	  }
-	
+
 	  _createClass(Item, [{
 	    key: 'shouldComponentUpdate',
 	    value: function shouldComponentUpdate(nextProps, nextState) {
@@ -1470,14 +1470,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'coordinateToTimeRatio',
 	    value: function coordinateToTimeRatio() {
 	      var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
-	
+
 	      return (props.canvasTimeEnd - props.canvasTimeStart) / props.canvasWidth;
 	    }
 	  }, {
 	    key: 'dragTimeSnap',
 	    value: function dragTimeSnap(dragTime, considerOffset) {
 	      var dragSnap = this.props.dragSnap;
-	
+
 	      if (dragSnap) {
 	        var offset = considerOffset ? (0, _moment2.default)().utcOffset() * 60 * 1000 : 0;
 	        return Math.round(dragTime / dragSnap) * dragSnap - offset % dragSnap;
@@ -1489,7 +1489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'resizeTimeSnap',
 	    value: function resizeTimeSnap(dragTime) {
 	      var dragSnap = this.props.dragSnap;
-	
+
 	      if (dragSnap) {
 	        var endTime = this.itemTimeEnd % dragSnap;
 	        return Math.round((dragTime - endTime) / dragSnap) * dragSnap + endTime;
@@ -1501,11 +1501,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'dragTime',
 	    value: function dragTime(e) {
 	      var startTime = this.itemTimeStart;
-	
+
 	      if (this.state.dragging) {
 	        var deltaX = e.pageX - this.state.dragStart.x;
 	        var timeDelta = deltaX * this.coordinateToTimeRatio();
-	
+
 	        return this.dragTimeSnap(startTime + timeDelta, true);
 	      } else {
 	        return startTime;
@@ -1518,21 +1518,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	          groupTops = _props.groupTops,
 	          order = _props.order,
 	          topOffset = _props.topOffset;
-	
+
 	      if (this.state.dragging) {
 	        if (!this.props.canChangeGroup) {
 	          return 0;
 	        }
 	        var groupDelta = 0;
-	
+
 	        var _iteratorNormalCompletion = true;
 	        var _didIteratorError = false;
 	        var _iteratorError = undefined;
-	
+
 	        try {
 	          for (var _iterator = Object.keys(groupTops)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	            var key = _step.value;
-	
+
 	            var item = groupTops[key];
 	            if (e.pageY - topOffset > item) {
 	              groupDelta = parseInt(key, 10) - order;
@@ -1554,7 +1554,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	          }
 	        }
-	
+
 	        if (this.props.order + groupDelta < 0) {
 	          return 0 - this.props.order;
 	        } else {
@@ -1569,7 +1569,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function resizeTimeDelta(e, resizeEdge) {
 	      var length = this.itemTimeEnd - this.itemTimeStart;
 	      var timeDelta = this.dragTimeSnap((e.pageX - this.state.resizeStart) * this.coordinateToTimeRatio());
-	
+
 	      if (length + (resizeEdge === 'left' ? -timeDelta : timeDelta) < (this.props.dragSnap || 1000)) {
 	        if (resizeEdge === 'left') {
 	          return length - (this.props.dragSnap || 1000);
@@ -1587,10 +1587,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'mountInteract',
 	    value: function mountInteract() {
 	      var _this2 = this;
-	
+
 	      var leftResize = this.props.useResizeHandle ? this.refs.dragLeft : true;
 	      var rightResize = this.props.useResizeHandle ? this.refs.dragRight : true;
-	
+
 	      (0, _interact2.default)(this.refs.item).resizable({
 	        edges: {
 	          left: this.canResizeLeft() && leftResize,
@@ -1617,15 +1617,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (_this2.state.dragging) {
 	          var dragTime = _this2.dragTime(e);
 	          var dragGroupDelta = _this2.dragGroupDelta(e);
-	
+
 	          if (_this2.props.moveResizeValidator) {
 	            dragTime = _this2.props.moveResizeValidator('move', _this2.props.item, dragTime);
 	          }
-	
+
 	          if (_this2.props.onDrag) {
 	            _this2.props.onDrag(_this2.itemId, dragTime, _this2.props.order + dragGroupDelta);
 	          }
-	
+
 	          _this2.setState({
 	            dragTime: dragTime,
 	            dragGroupDelta: dragGroupDelta
@@ -1635,14 +1635,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (_this2.state.dragging) {
 	          if (_this2.props.onDrop) {
 	            var dragTime = _this2.dragTime(e);
-	
+
 	            if (_this2.props.moveResizeValidator) {
 	              dragTime = _this2.props.moveResizeValidator('move', _this2.props.item, dragTime);
 	            }
-	
+
 	            _this2.props.onDrop(_this2.itemId, dragTime, _this2.props.order + _this2.dragGroupDelta(e));
 	          }
-	
+
 	          _this2.setState({
 	            dragging: false,
 	            dragStart: null,
@@ -1665,23 +1665,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }).on('resizemove', function (e) {
 	        if (_this2.state.resizing) {
 	          var resizeEdge = _this2.state.resizeEdge;
-	
+
 	          if (!resizeEdge) {
 	            resizeEdge = e.deltaRect.left !== 0 ? 'left' : 'right';
 	            _this2.setState({ resizeEdge: resizeEdge });
 	          }
 	          var time = resizeEdge === 'left' ? _this2.itemTimeStart : _this2.itemTimeEnd;
-	
+
 	          var resizeTime = _this2.resizeTimeSnap(time + _this2.resizeTimeDelta(e, resizeEdge));
-	
+
 	          if (_this2.props.moveResizeValidator) {
 	            resizeTime = _this2.props.moveResizeValidator('resize', _this2.props.item, resizeTime, resizeEdge);
 	          }
-	
+
 	          if (_this2.props.onResizing) {
 	            _this2.props.onResizing(_this2.itemId, resizeTime, resizeEdge);
 	          }
-	
+
 	          _this2.setState({
 	            resizeTime: resizeTime
 	          });
@@ -1689,14 +1689,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }).on('resizeend', function (e) {
 	        if (_this2.state.resizing) {
 	          var resizeEdge = _this2.state.resizeEdge;
-	
+
 	          var time = resizeEdge === 'left' ? _this2.itemTimeStart : _this2.itemTimeEnd;
 	          var resizeTime = _this2.resizeTimeSnap(time + _this2.resizeTimeDelta(e, resizeEdge));
-	
+
 	          if (_this2.props.moveResizeValidator) {
 	            resizeTime = _this2.props.moveResizeValidator('resize', _this2.props.item, resizeTime, resizeEdge);
 	          }
-	
+
 	          if (_this2.props.onResized && _this2.resizeTimeDelta(e, resizeEdge) !== 0) {
 	            _this2.props.onResized(_this2.itemId, resizeTime, resizeEdge);
 	          }
@@ -1710,7 +1710,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }).on('tap', function (e) {
 	        _this2.actualClick(e, e.pointerType === 'mouse' ? 'click' : 'touch');
 	      });
-	
+
 	      this.setState({
 	        interactMounted: true
 	      });
@@ -1719,7 +1719,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'canResizeLeft',
 	    value: function canResizeLeft() {
 	      var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
-	
+
 	      if (!props.canResizeLeft || props.dimensions.clippedLeft) {
 	        return false;
 	      }
@@ -1730,7 +1730,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'canResizeRight',
 	    value: function canResizeRight() {
 	      var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
-	
+
 	      if (!props.canResizeRight || props.dimensions.clippedRight) {
 	        return false;
 	      }
@@ -1741,32 +1741,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'canMove',
 	    value: function canMove() {
 	      var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
-	
+
 	      return !!props.canMove;
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
 	      this.cacheDataFromProps(nextProps);
-	
+
 	      var interactMounted = this.state.interactMounted;
-	
+
 	      var couldDrag = this.props.selected && this.canMove(this.props);
 	      var couldResizeLeft = this.props.selected && this.canResizeLeft(this.props);
 	      var couldResizeRight = this.props.selected && this.canResizeRight(this.props);
 	      var willBeAbleToDrag = nextProps.selected && this.canMove(nextProps);
 	      var willBeAbleToResizeLeft = nextProps.selected && this.canResizeLeft(nextProps);
 	      var willBeAbleToResizeRight = nextProps.selected && this.canResizeRight(nextProps);
-	
+
 	      if (nextProps.selected && !interactMounted) {
 	        this.mountInteract();
 	        interactMounted = true;
 	      }
-	
+
 	      if (interactMounted && (couldResizeLeft !== willBeAbleToResizeLeft || couldResizeRight !== willBeAbleToResizeRight)) {
 	        var leftResize = this.props.useResizeHandle ? this.refs.dragLeft : true;
 	        var rightResize = this.props.useResizeHandle ? this.refs.dragRight : true;
-	
+
 	        (0, _interact2.default)(this.refs.item).resizable({
 	          enabled: willBeAbleToResizeLeft || willBeAbleToResizeRight,
 	          edges: {
@@ -1795,9 +1795,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (typeof this.props.order === 'undefined' || this.props.order === null) {
 	        return null;
 	      }
-	
+
 	      var classNames = 'rct-item' + (this.props.selected ? ' selected' : '') + (this.canMove(this.props) ? ' can-move' : '') + (this.canResizeLeft(this.props) || this.canResizeRight(this.props) ? ' can-resize' : '') + (this.canResizeLeft(this.props) ? ' can-resize-left' : '') + (this.canResizeRight(this.props) ? ' can-resize-right' : '') + (this.props.item.className ? ' ' + this.props.item.className : '') + (dimensions.clippedLeft ? ' clipped-left' : '') + (dimensions.clippedRight ? ' clipped-right' : '');
-	
+
 	      var style = {
 	        left: dimensions.left + 'px',
 	        top: dimensions.top + 'px',
@@ -1805,7 +1805,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        height: dimensions.height + 'px',
 	        lineHeight: dimensions.height + 'px'
 	      };
-	
+
 	      return _react2.default.createElement(
 	        'div',
 	        _extends({}, this.props.item.itemProps, {
@@ -1834,10 +1834,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      );
 	    }
 	  }]);
-	
+
 	  return Item;
 	}(_react.Component);
-	
+
 	Item.propTypes = {
 	  // canvasTimeStart: React.PropTypes.number.isRequired,
 	  // canvasTimeEnd: React.PropTypes.number.isRequired,
@@ -1880,13 +1880,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
+
 	exports._get = _get;
 	exports._length = _length;
 	exports.arraysEqual = arraysEqual;
@@ -1906,45 +1906,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.hasSomeParentTheClass = hasSomeParentTheClass;
 	exports.createGradientPattern = createGradientPattern;
 	exports.deepObjectCompare = deepObjectCompare;
-	
+
 	var _moment = __webpack_require__(3);
-	
+
 	var _moment2 = _interopRequireDefault(_moment);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	var EPSILON = 0.001;
-	
+
 	// so we could use both immutable.js objects and regular objects
 	function _get(object, key) {
 	  return typeof object.get === 'function' ? object.get(key) : object[key];
 	}
-	
+
 	function _length(object) {
 	  return typeof object.count === 'function' ? object.count() : object.length;
 	}
-	
+
 	function arraysEqual(array1, array2) {
 	  return _length(array1) === _length(array2) && array1.every(function (element, index) {
 	    return element === _get(array2, index);
 	  });
 	}
-	
+
 	function iterateTimes(start, end, unit, timeSteps, callback) {
 	  var time = (0, _moment2.default)(start).startOf(unit);
-	
+
 	  if (timeSteps[unit] && timeSteps[unit] > 1) {
 	    var value = time.get(unit);
 	    time.set(unit, value - value % timeSteps[unit]);
 	  }
-	
+
 	  while (time.valueOf() < end) {
 	    var nextTime = (0, _moment2.default)(time).add(timeSteps[unit] || 1, unit + 's');
 	    callback(time, nextTime);
 	    time = nextTime;
 	  }
 	}
-	
+
 	function getMinUnit(zoom, width, timeSteps) {
 	  var timeDividers = {
 	    second: 1000,
@@ -1954,25 +1954,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	    month: 30,
 	    year: 12
 	  };
-	
+
 	  var minUnit = 'year';
 	  var breakCount = zoom;
 	  var minCellWidth = 17;
-	
+
 	  Object.keys(timeDividers).some(function (unit) {
 	    breakCount = breakCount / timeDividers[unit];
 	    var cellCount = breakCount / timeSteps[unit];
 	    var countNeeded = width / (timeSteps[unit] && timeSteps[unit] > 1 ? 3 * minCellWidth : minCellWidth);
-	
+
 	    if (cellCount < countNeeded) {
 	      minUnit = unit;
 	      return true;
 	    }
 	  });
-	
+
 	  return minUnit;
 	}
-	
+
 	function getNextUnit(unit) {
 	  var nextUnits = {
 	    second: 'minute',
@@ -1981,15 +1981,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    day: 'month',
 	    month: 'year'
 	  };
-	
+
 	  return nextUnits[unit] || '';
 	}
-	
+
 	function getParentPosition(element) {
 	  var xPosition = 0;
 	  var yPosition = 0;
 	  var first = true;
-	
+
 	  while (element) {
 	    xPosition += element.offsetLeft - (first ? 0 : element.scrollLeft) + element.clientLeft;
 	    yPosition += element.offsetTop - (first ? 0 : element.scrollTop) + element.clientTop;
@@ -1998,11 +1998,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	  return { x: xPosition, y: yPosition };
 	}
-	
+
 	function coordinateToTimeRatio(canvasTimeStart, canvasTimeEnd, canvasWidth) {
 	  return (canvasTimeEnd - canvasTimeStart) / canvasWidth;
 	}
-	
+
 	function calculateDimensions(_ref) {
 	  var item = _ref.item,
 	      order = _ref.order,
@@ -2022,24 +2022,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	      fullUpdate = _ref.fullUpdate,
 	      visibleTimeStart = _ref.visibleTimeStart,
 	      visibleTimeEnd = _ref.visibleTimeEnd;
-	
+
 	  var itemId = _get(item, keys.itemIdKey);
 	  var itemTimeStart = _get(item, keys.itemTimeStartKey);
 	  var itemTimeEnd = _get(item, keys.itemTimeEndKey);
-	
+
 	  var isDragging = itemId === draggingItem;
 	  var isResizing = itemId === resizingItem;
-	
+
 	  var itemStart = isResizing && resizingEdge === 'left' ? resizeTime : itemTimeStart;
 	  var itemEnd = isResizing && resizingEdge === 'right' ? resizeTime : itemTimeEnd;
-	
+
 	  var x = isDragging ? dragTime : itemStart;
-	
+
 	  var w = Math.max(itemEnd - itemStart, dragSnap);
-	
+
 	  var collisionX = itemStart;
 	  var collisionW = w;
-	
+
 	  if (isDragging) {
 	    if (itemTimeStart >= dragTime) {
 	      collisionX = dragTime;
@@ -2048,15 +2048,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	      collisionW = Math.max(dragTime - itemTimeStart + w, dragSnap);
 	    }
 	  }
-	
+
 	  var clippedLeft = false;
 	  var clippedRight = false;
-	
+
 	  if (fullUpdate) {
 	    if (!isDragging && (visibleTimeStart > x + w || visibleTimeEnd < x)) {
 	      return null;
 	    }
-	
+
 	    if (visibleTimeStart > x) {
 	      w -= visibleTimeStart - x;
 	      x = visibleTimeStart;
@@ -2071,10 +2071,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      clippedRight = true;
 	    }
 	  }
-	
+
 	  var ratio = 1 / coordinateToTimeRatio(canvasTimeStart, canvasTimeEnd, canvasWidth);
 	  var h = lineHeight * itemHeightRatio;
-	
+
 	  var dimensions = {
 	    left: (x - canvasTimeStart) * ratio,
 	    top: null,
@@ -2090,78 +2090,78 @@ return /******/ (function(modules) { // webpackBootstrap
 	    clippedLeft: clippedLeft,
 	    clippedRight: clippedRight
 	  };
-	
+
 	  return dimensions;
 	}
-	
+
 	function getGroupOrders(groups, keys) {
 	  var groupIdKey = keys.groupIdKey;
-	
-	
+
+
 	  var groupOrders = {};
-	
+
 	  for (var i = 0; i < groups.length; i++) {
 	    groupOrders[_get(groups[i], groupIdKey)] = i;
 	  }
-	
+
 	  return groupOrders;
 	}
-	
+
 	function getVisibleItems(items, canvasTimeStart, canvasTimeEnd, keys) {
 	  var itemTimeStartKey = keys.itemTimeStartKey,
 	      itemTimeEndKey = keys.itemTimeEndKey;
-	
-	
+
+
 	  return items.filter(function (item) {
 	    return _get(item, itemTimeStartKey) <= canvasTimeEnd && _get(item, itemTimeEndKey) >= canvasTimeStart;
 	  });
 	}
-	
+
 	function collision(a, b, lineHeight) {
 	  // var verticalMargin = (lineHeight - a.height)/2;
 	  var verticalMargin = 0;
 	  return a.collisionLeft + EPSILON < b.collisionLeft + b.collisionWidth && a.collisionLeft + a.collisionWidth - EPSILON > b.collisionLeft && a.top - verticalMargin + EPSILON < b.top + b.height && a.top + a.height + verticalMargin - EPSILON > b.top;
 	}
-	
+
 	function stack(items, groupOrders, lineHeight, headerHeight, force) {
 	  var i, iMax;
-	
+
 	  var totalHeight = headerHeight;
-	
+
 	  var groupHeights = {};
 	  var groupTops = {};
-	
+
 	  var groupedItems = groupBy(items, function (item) {
 	    return item.dimensions.order;
 	  });
-	
+
 	  if (force) {
 	    // reset top position of all items
 	    for (i = 0, iMax = items.length; i < iMax; i++) {
 	      items[i].dimensions.top = null;
 	    }
 	  }
-	
+
 	  var _iteratorNormalCompletion = true;
 	  var _didIteratorError = false;
 	  var _iteratorError = undefined;
-	
+
 	  try {
 	    for (var _iterator = Object.keys(groupOrders)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	      var url = _step.value;
-	
+
 	      var key = groupOrders[url];
 	      // calculate new, non-overlapping positions
 	      var group = groupedItems[key] || [];
-	
+
 	      groupTops[key] = totalHeight;
-	
+
 	      var groupHeight = 0;
 	      var verticalMargin = 0;
 	      for (i = 0, iMax = group.length; i < iMax; i++) {
 	        var item = group[i];
 	        verticalMargin = item.dimensions.lineHeight - item.dimensions.height;
-	
+
 	        if (item.dimensions.stack && item.dimensions.top === null) {
 	          item.dimensions.top = totalHeight + verticalMargin;
 	          groupHeight = Math.max(groupHeight, item.dimensions.lineHeight);
@@ -2176,7 +2176,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                // console.log('dont test', other.top !== null, other !== item, other.stack);
 	              }
 	            }
-	
+
 	            if (collidingItem != null) {
 	              // There is a collision. Reposition the items above the colliding element
 	              item.dimensions.top = collidingItem.dimensions.top + collidingItem.dimensions.lineHeight;
@@ -2202,52 +2202,52 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }
 	  }
-	
+
 	  return {
 	    height: totalHeight,
 	    groupHeights: groupHeights,
 	    groupTops: groupTops
 	  };
 	}
-	
+
 	function nostack(items, groupOrders, lineHeight, headerHeight, force) {
 	  var i, iMax;
-	
+
 	  var totalHeight = headerHeight;
-	
+
 	  var groupHeights = {};
 	  var groupTops = {};
-	
+
 	  var groupedItems = groupBy(items, function (item) {
 	    return item.dimensions.order;
 	  });
-	
+
 	  if (force) {
 	    // reset top position of all items
 	    for (i = 0, iMax = items.length; i < iMax; i++) {
 	      items[i].dimensions.top = null;
 	    }
 	  }
-	
+
 	  var _iteratorNormalCompletion2 = true;
 	  var _didIteratorError2 = false;
 	  var _iteratorError2 = undefined;
-	
+
 	  try {
 	    for (var _iterator2 = Object.keys(groupOrders)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
 	      var url = _step2.value;
-	
+
 	      var key = groupOrders[url];
 	      // calculate new, non-overlapping positions
 	      var group = groupedItems[key] || [];
-	
+
 	      groupTops[key] = totalHeight;
-	
+
 	      var groupHeight = 0;
 	      for (i = 0, iMax = group.length; i < iMax; i++) {
 	        var item = group[i];
 	        var verticalMargin = (item.dimensions.lineHeight - item.dimensions.height) / 2;
-	
+
 	        if (item.dimensions.top === null) {
 	          item.dimensions.top = totalHeight + verticalMargin;
 	          groupHeight = Math.max(groupHeight, item.dimensions.lineHeight);
@@ -2270,27 +2270,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }
 	  }
-	
+
 	  return {
 	    height: totalHeight,
 	    groupHeights: groupHeights,
 	    groupTops: groupTops
 	  };
 	}
-	
+
 	function keyBy(value, key) {
 	  var obj = {};
-	
+
 	  value.forEach(function (element, index, array) {
 	    obj[element[key]] = element;
 	  });
-	
+
 	  return obj;
 	}
-	
+
 	function groupBy(collection, groupFunction) {
 	  var obj = {};
-	
+
 	  collection.forEach(function (element, index, array) {
 	    var key = groupFunction(element);
 	    if (!obj[key]) {
@@ -2298,15 +2298,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    obj[key].push(element);
 	  });
-	
+
 	  return obj;
 	}
-	
+
 	function hasSomeParentTheClass(element, classname) {
 	  if (element.className && element.className.split(' ').indexOf(classname) >= 0) return true;
 	  return element.parentNode && hasSomeParentTheClass(element.parentNode, classname);
 	}
-	
+
 	function createGradientPattern(lineHeight, color1, color2, borderColor) {
 	  if (borderColor) {
 	    if (!color2 || color1 === color2) {
@@ -2322,11 +2322,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }
 	}
-	
+
 	function deepObjectCompare(obj1, obj2) {
 	  for (var p in obj1) {
 	    if (obj1.hasOwnProperty(p) !== obj2.hasOwnProperty(p)) return false;
-	
+
 	    switch (_typeof(obj1[p])) {
 	      case 'object':
 	        if (!Object.compare(obj1[p], obj2[p])) return false;
@@ -2338,7 +2338,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (obj1[p] !== obj2[p]) return false;
 	    }
 	  }
-	
+
 	  for (var r in obj2) {
 	    if (typeof obj1[r] === 'undefined') return false;
 	  }
@@ -2350,46 +2350,46 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(2);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _function = __webpack_require__(13);
-	
+
 	var _function2 = _interopRequireDefault(_function);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var InfoLabel = function (_Component) {
 	  _inherits(InfoLabel, _Component);
-	
+
 	  function InfoLabel() {
 	    var _ref;
-	
+
 	    var _temp, _this, _ret;
-	
+
 	    _classCallCheck(this, InfoLabel);
-	
+
 	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	      args[_key] = arguments[_key];
 	    }
-	
+
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = InfoLabel.__proto__ || Object.getPrototypeOf(InfoLabel)).call.apply(_ref, [this].concat(args))), _this), _this.shouldComponentUpdate = _function2.default, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
-	
+
 	  _createClass(InfoLabel, [{
 	    key: 'render',
 	    value: function render() {
@@ -2400,13 +2400,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      );
 	    }
 	  }]);
-	
+
 	  return InfoLabel;
 	}(_react.Component);
-	
+
 	exports.default = InfoLabel;
-	
-	
+
+
 	InfoLabel.propTypes = {
 	  label: _react2.default.PropTypes.string.isRequired
 	};
@@ -2419,20 +2419,20 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	exports.__esModule = true;
 	exports['default'] = shouldPureComponentUpdate;
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
+
 	var _shallowEqual = __webpack_require__(14);
-	
+
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
-	
+
 	function shouldPureComponentUpdate(nextProps, nextState) {
 	  return !(0, _shallowEqual2['default'])(this.props, nextProps) || !(0, _shallowEqual2['default'])(this.state, nextState);
 	}
-	
+
 	module.exports = exports['default'];
 
 /***/ },
@@ -2440,26 +2440,26 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	'use strict';
-	
+
 	exports.__esModule = true;
 	exports['default'] = shallowEqual;
-	
+
 	function shallowEqual(objA, objB) {
 	  if (objA === objB) {
 	    return true;
 	  }
-	
+
 	  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
 	    return false;
 	  }
-	
+
 	  var keysA = Object.keys(objA);
 	  var keysB = Object.keys(objB);
-	
+
 	  if (keysA.length !== keysB.length) {
 	    return false;
 	  }
-	
+
 	  // Test for A's keys different from B.
 	  var bHasOwnProperty = Object.prototype.hasOwnProperty.bind(objB);
 	  for (var i = 0; i < keysA.length; i++) {
@@ -2467,10 +2467,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return false;
 	    }
 	  }
-	
+
 	  return true;
 	}
-	
+
 	module.exports = exports['default'];
 
 /***/ },
@@ -2478,49 +2478,49 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(2);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(11);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var Sidebar = function (_Component) {
 	  _inherits(Sidebar, _Component);
-	
+
 	  function Sidebar(props) {
 	    _classCallCheck(this, Sidebar);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Sidebar.__proto__ || Object.getPrototypeOf(Sidebar)).call(this, props));
-	
+
 	    _this.state = {
 	      scrollTop: 0,
 	      componentTop: 0
 	    };
 	    return _this;
 	  }
-	
+
 	  _createClass(Sidebar, [{
 	    key: 'shouldComponentUpdate',
 	    value: function shouldComponentUpdate(nextProps, nextState) {
 	      if (nextProps.fixedHeader === 'absolute' && window && window.document && this.state.scrollTop !== nextState.scrollTop) {
 	        return true;
 	      }
-	
+
 	      return !((0, _utils.arraysEqual)(nextProps.groups, this.props.groups) && nextProps.keys === this.props.keys && nextProps.width === this.props.width && nextProps.lineHeight === this.props.lineHeight && nextProps.fixedHeader === this.props.fixedHeader && nextProps.zIndex === this.props.zIndex && nextProps.groupHeights === this.props.groupHeights && nextProps.height === this.props.height);
 	    }
 	  }, {
@@ -2545,16 +2545,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var _this2 = this;
-	
+
 	      this.setComponentTop();
 	      this.scroll();
-	
+
 	      this.scrollEventListener = {
 	        handleEvent: function handleEvent(event) {
 	          _this2.scroll();
 	        }
 	      };
-	
+
 	      window.addEventListener('scroll', this.scrollEventListener);
 	    }
 	  }, {
@@ -2582,23 +2582,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	          groupIdKey = _props$keys.groupIdKey,
 	          groupTitleKey = _props$keys.groupTitleKey;
 	      var scrollTop = this.state.scrollTop;
-	
-	
+
+
 	      var sidebarStyle = {
 	        width: width + 'px',
 	        height: height + 'px'
 	      };
-	
+
 	      var headerStyle = {
 	        height: headerHeight + 'px',
 	        lineHeight: lineHeight + 'px',
 	        width: width + 'px'
 	      };
-	
+
 	      var groupsStyle = {
 	        width: width + 'px'
 	      };
-	
+
 	      if (fixedHeader === 'fixed') {
 	        headerStyle.position = 'fixed';
 	        headerStyle.zIndex = zIndex;
@@ -2612,22 +2612,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	          groupsStyle.paddingTop = headerStyle.height;
 	        }
 	      }
-	
+
 	      var header = _react2.default.createElement(
 	        'div',
 	        { ref: 'sidebarHeader', className: 'rct-sidebar-header', style: headerStyle },
 	        this.props.children
 	      );
-	
+
 	      var groupLines = [];
 	      var i = 0;
-	
+
 	      this.props.groups.forEach(function (group, index) {
 	        var elementStyle = {
 	          height: groupHeights[index] - 1 + 'px',
 	          lineHeight: groupHeights[index] - 1 + 'px'
 	        };
-	
+
 	        groupLines.push(_react2.default.createElement(
 	          'div',
 	          { key: (0, _utils._get)(group, groupIdKey), className: 'rct-sidebar-row' + (i % 2 === 0 ? ' rct-sidebar-row-even' : ' rct-sidebar-row-odd'), style: elementStyle },
@@ -2635,7 +2635,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        ));
 	        i += 1;
 	      });
-	
+
 	      return _react2.default.createElement(
 	        'div',
 	        { ref: 'sidebar', className: 'rct-sidebar', style: sidebarStyle },
@@ -2648,13 +2648,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      );
 	    }
 	  }]);
-	
+
 	  return Sidebar;
 	}(_react.Component);
-	
+
 	exports.default = Sidebar;
-	
-	
+
+
 	Sidebar.propTypes = {
 	  groups: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.array, _react2.default.PropTypes.object]).isRequired,
 	  width: _react2.default.PropTypes.number.isRequired,
@@ -2675,49 +2675,49 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(2);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _moment = __webpack_require__(3);
-	
+
 	var _moment2 = _interopRequireDefault(_moment);
-	
+
 	var _utils = __webpack_require__(11);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var Header = function (_Component) {
 	  _inherits(Header, _Component);
-	
+
 	  function Header(props) {
 	    _classCallCheck(this, Header);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
-	
+
 	    _this.periodClick = function (e) {
 	      var _e$target$dataset = e.target.dataset,
 	          time = _e$target$dataset.time,
 	          unit = _e$target$dataset.unit;
-	
+
 	      if (time && unit) {
 	        _this.props.showPeriod((0, _moment2.default)(time - 0), unit);
 	      }
 	    };
-	
+
 	    _this.touchStart = function (e) {
 	      if (e.touches.length === 1) {
 	        _this.setState({
@@ -2726,12 +2726,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	      }
 	    };
-	
+
 	    _this.touchEnd = function (e) {
 	      if (!_this.state.touchActive) {
 	        return _this.resetTouchState();
 	      }
-	
+
 	      var changedTouches = e.changedTouches[0];
 	      if (changedTouches) {
 	        var elem = document.elementFromPoint(changedTouches.pageX, changedTouches.pageY);
@@ -2739,11 +2739,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return _this.resetTouchState();
 	        }
 	      }
-	
+
 	      _this.resetTouchState();
 	      _this.periodClick(e);
 	    };
-	
+
 	    _this.state = {
 	      scrollTop: 0,
 	      componentTop: 0,
@@ -2752,7 +2752,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	    return _this;
 	  }
-	
+
 	  _createClass(Header, [{
 	    key: 'scroll',
 	    value: function scroll(e) {
@@ -2775,16 +2775,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var _this2 = this;
-	
+
 	      this.setComponentTop();
 	      this.scroll();
-	
+
 	      this.scrollEventListener = {
 	        handleEvent: function handleEvent(event) {
 	          _this2.scroll();
 	        }
 	      };
-	
+
 	      window.addEventListener('scroll', this.scrollEventListener);
 	    }
 	  }, {
@@ -2841,7 +2841,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'render',
 	    value: function render() {
 	      var _this3 = this;
-	
+
 	      var timeLabels = [];
 	      var _props = this.props,
 	          canvasTimeStart = _props.canvasTimeStart,
@@ -2856,15 +2856,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	          headerLabelGroupHeight = _props.headerLabelGroupHeight,
 	          headerLabelHeight = _props.headerLabelHeight;
 	      var scrollTop = this.state.scrollTop;
-	
+
 	      var ratio = canvasWidth / (canvasTimeEnd - canvasTimeStart);
 	      var twoHeaders = minUnit !== 'year';
-	
+
 	      // add the top header
 	      if (twoHeaders) {
 	        (function () {
 	          var nextUnit = (0, _utils.getNextUnit)(minUnit);
-	
+
 	          (0, _utils.iterateTimes)(visibleTimeStart, visibleTimeEnd, nextUnit, timeSteps, function (time, nextTime) {
 	            var startTime = Math.max(visibleTimeStart, time.valueOf());
 	            var endTime = Math.min(visibleTimeEnd, nextTime.valueOf());
@@ -2872,7 +2872,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var right = Math.round((endTime.valueOf() - canvasTimeStart) * ratio, -2);
 	            var labelWidth = right - left;
 	            var leftCorrect = fixedHeader === 'fixed' ? Math.round((canvasTimeStart - visibleTimeStart) * ratio) - 1 : 0;
-	
+
 	            timeLabels.push(_react2.default.createElement(
 	              'div',
 	              { key: 'top-label-' + time.valueOf(),
@@ -2892,7 +2892,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          });
 	        })();
 	      }
-	
+
 	      (0, _utils.iterateTimes)(canvasTimeStart, canvasTimeEnd, minUnit, timeSteps, function (time, nextTime) {
 	        var left = Math.round((time.valueOf() - canvasTimeStart) * ratio, -2);
 	        var minUnitValue = time.get(minUnit === 'day' ? 'date' : minUnit);
@@ -2900,7 +2900,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var labelWidth = Math.round((nextTime.valueOf() - time.valueOf()) * ratio, -2);
 	        var borderWidth = firstOfType ? 2 : 1;
 	        var leftCorrect = fixedHeader === 'fixed' ? Math.round((canvasTimeStart - visibleTimeStart) * ratio) - borderWidth + 1 : 0;
-	
+
 	        timeLabels.push(_react2.default.createElement(
 	          'div',
 	          { key: 'label-' + time.valueOf(),
@@ -2920,15 +2920,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _this3.subHeaderLabel(time, minUnit, labelWidth)
 	        ));
 	      });
-	
+
 	      var zIndex = this.props.zIndex;
-	
-	
+
+
 	      var headerStyle = {
 	        height: headerLabelGroupHeight + headerLabelHeight + 'px',
 	        lineHeight: lineHeight + 'px'
 	      };
-	
+
 	      if (fixedHeader === 'fixed') {
 	        headerStyle.position = 'fixed';
 	        headerStyle.width = '100%';
@@ -2942,7 +2942,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          headerStyle.left = '0';
 	        }
 	      }
-	
+
 	      return _react2.default.createElement(
 	        'div',
 	        { ref: 'header', key: 'header', className: 'rct-header', onTouchStart: this.touchStart, onTouchEnd: this.touchEnd, onClick: this.periodClick, style: headerStyle },
@@ -2950,13 +2950,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      );
 	    }
 	  }]);
-	
+
 	  return Header;
 	}(_react.Component);
-	
+
 	exports.default = Header;
-	
-	
+
+
 	Header.propTypes = {
 	  // groups: React.PropTypes.array.isRequired,
 	  // width: React.PropTypes.number.isRequired,
@@ -2986,36 +2986,36 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(2);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _utils = __webpack_require__(11);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var VerticalLines = function (_Component) {
 	  _inherits(VerticalLines, _Component);
-	
+
 	  function VerticalLines() {
 	    _classCallCheck(this, VerticalLines);
-	
+
 	    return _possibleConstructorReturn(this, (VerticalLines.__proto__ || Object.getPrototypeOf(VerticalLines)).apply(this, arguments));
 	  }
-	
+
 	  _createClass(VerticalLines, [{
 	    key: 'shouldComponentUpdate',
 	    value: function shouldComponentUpdate(nextProps, nextState) {
@@ -3025,7 +3025,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
-	
+
 	      var _props = this.props,
 	          canvasTimeStart = _props.canvasTimeStart,
 	          canvasTimeEnd = _props.canvasTimeEnd,
@@ -3034,11 +3034,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	          timeSteps = _props.timeSteps,
 	          height = _props.height,
 	          headerHeight = _props.headerHeight;
-	
+
 	      var ratio = canvasWidth / (canvasTimeEnd - canvasTimeStart);
-	
+
 	      var lines = [];
-	
+
 	      (0, _utils.iterateTimes)(canvasTimeStart, canvasTimeEnd, minUnit, timeSteps, function (time, nextTime) {
 	        var left = Math.round((time.valueOf() - canvasTimeStart) * ratio, -2);
 	        var minUnitValue = time.get(minUnit === 'day' ? 'date' : minUnit);
@@ -3046,9 +3046,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var lineWidth = firstOfType ? 2 : 1;
 	        var labelWidth = Math.ceil((nextTime.valueOf() - time.valueOf()) * ratio) - lineWidth;
 	        var leftPush = _this2.props.fixedHeader === 'fixed' && firstOfType ? -1 : 0;
-	
+
 	        var classNames = 'rct-vl' + (firstOfType ? ' rct-vl-first' : '') + (minUnit === 'day' || minUnit === 'hour' || minUnit === 'minute' ? ' rct-day-' + time.day() : '');
-	
+
 	        lines.push(_react2.default.createElement('div', { key: 'line-' + time.valueOf(),
 	          className: classNames,
 	          style: {
@@ -3058,7 +3058,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            height: height - headerHeight + 'px'
 	          } }));
 	      });
-	
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'rct-vertical-lines' },
@@ -3066,13 +3066,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      );
 	    }
 	  }]);
-	
+
 	  return VerticalLines;
 	}(_react.Component);
-	
+
 	exports.default = VerticalLines;
-	
-	
+
+
 	VerticalLines.propTypes = {
 	  canvasTimeStart: _react2.default.PropTypes.number.isRequired,
 	  canvasTimeEnd: _react2.default.PropTypes.number.isRequired,
@@ -3093,34 +3093,34 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(2);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var HorizontalLines = function (_Component) {
 	  _inherits(HorizontalLines, _Component);
-	
+
 	  function HorizontalLines() {
 	    _classCallCheck(this, HorizontalLines);
-	
+
 	    return _possibleConstructorReturn(this, (HorizontalLines.__proto__ || Object.getPrototypeOf(HorizontalLines)).apply(this, arguments));
 	  }
-	
+
 	  _createClass(HorizontalLines, [{
 	    key: 'shouldComponentUpdate',
 	    value: function shouldComponentUpdate(nextProps, nextState) {
@@ -3134,9 +3134,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	          canvasWidth = _props.canvasWidth,
 	          groupHeights = _props.groupHeights,
 	          headerHeight = _props.headerHeight;
-	
+
 	      var lines = [];
-	
+
 	      var totalHeight = headerHeight;
 	      for (var i = 0; i < lineCount; i++) {
 	        lines.push(_react2.default.createElement('div', { key: 'horizontal-line-' + i,
@@ -3149,7 +3149,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          } }));
 	        totalHeight += groupHeights[i];
 	      }
-	
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'rct-horizontal-lines' },
@@ -3157,13 +3157,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      );
 	    }
 	  }]);
-	
+
 	  return HorizontalLines;
 	}(_react.Component);
-	
+
 	exports.default = HorizontalLines;
-	
-	
+
+
 	HorizontalLines.propTypes = {
 	  canvasWidth: _react2.default.PropTypes.number.isRequired,
 	  lineHeight: _react2.default.PropTypes.number.isRequired,
@@ -3178,41 +3178,41 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(2);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var TodayLine = function (_Component) {
 	  _inherits(TodayLine, _Component);
-	
+
 	  function TodayLine() {
 	    _classCallCheck(this, TodayLine);
-	
+
 	    return _possibleConstructorReturn(this, (TodayLine.__proto__ || Object.getPrototypeOf(TodayLine)).apply(this, arguments));
 	  }
-	
+
 	  _createClass(TodayLine, [{
 	    key: 'render',
-	
+
 	    // TODO: should currentTime come from a prop? probably...?
 	    value: function render() {
 	      var currentTime = new Date().getTime();
-	
+
 	      if (currentTime > this.props.canvasTimeStart && currentTime < this.props.canvasTimeEnd) {
 	        var ratio = this.props.canvasWidth / (this.props.canvasTimeEnd - this.props.canvasTimeStart);
 	        var left = Math.round((currentTime - this.props.canvasTimeStart) * ratio);
@@ -3223,19 +3223,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	          left: left + 'px',
 	          height: height + 'px'
 	        };
-	
+
 	        return _react2.default.createElement('div', { className: 'rct-today', style: styles });
 	      } else {
 	        return _react2.default.createElement('div', null);
 	      }
 	    }
 	  }]);
-	
+
 	  return TodayLine;
 	}(_react.Component);
-	
+
 	exports.default = TodayLine;
-	
+
 	TodayLine.propTypes = {
 	  canvasTimeStart: _react2.default.PropTypes.number.isRequired,
 	  canvasTimeEnd: _react2.default.PropTypes.number.isRequired,
