@@ -491,14 +491,13 @@ export default class ReactCalendarTimeline extends Component {
   }
 
   showPeriod = (from, unit) => {
-    const minZoom = this.props.minZoom;
 
     let visibleTimeStart = from.valueOf()
     let visibleTimeEnd = moment(from).add(1, unit).valueOf()
     let zoom = visibleTimeEnd - visibleTimeStart
 
     //should not allow to zoom more than min zoom
-    if (zoom < minZoom) {
+    if (this.props.minZoom && zoom < this.props.minZoom) {
       return
     }
 

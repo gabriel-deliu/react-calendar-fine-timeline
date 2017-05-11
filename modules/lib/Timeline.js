@@ -891,15 +891,13 @@ var _initialiseProps = function _initialiseProps() {
 
   this.showPeriod = function (from, unit) {
 
-    const minZoom = this.props.minZoom;
-
     var visibleTimeStart = from.valueOf();
     var visibleTimeEnd = (0, _moment2.default)(from).add(1, unit).valueOf();
     var zoom = visibleTimeEnd - visibleTimeStart;
 
-    // can't zoom in more than to show one hour
-    if (zoom < minZoom) {
-      return;
+    //should not allow to zoom more than min zoom (MV)
+    if (this.props.minZoom && zoom < this.props.minZoom) {
+      return
     }
 
     // clicked on the big header and already focused here, zoom out
