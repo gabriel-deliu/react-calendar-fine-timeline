@@ -891,7 +891,7 @@ var _initialiseProps = function _initialiseProps() {
 
   this.showPeriod = function (from, unit) {
 
-    const { minZoom } = this.props
+    const minZoom = this.props.minZoom;
 
     var visibleTimeStart = from.valueOf();
     var visibleTimeEnd = (0, _moment2.default)(from).add(1, unit).valueOf();

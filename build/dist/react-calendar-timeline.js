@@ -966,7 +966,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.showPeriod = function (from, unit) {
 	    var minZoom = _this3.props.minZoom;
 	
-	
 	    var visibleTimeStart = from.valueOf();
 	    var visibleTimeEnd = (0, _moment2.default)(from).add(1, unit).valueOf();
 	    var zoom = visibleTimeEnd - visibleTimeStart;
