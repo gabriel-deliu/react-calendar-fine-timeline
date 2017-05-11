@@ -1958,7 +1958,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  var minUnit = 'year';
 	  var breakCount = zoom;
-	  var minCellWidth = 17;
+	  var minCellWidth = 12;
 	
 	  Object.keys(timeDividers).some(function (unit) {
 	    breakCount = breakCount / timeDividers[unit];

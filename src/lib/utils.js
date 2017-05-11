@@ -44,7 +44,7 @@ export function getMinUnit (zoom, width, timeSteps) {
 
   let minUnit = 'year'
   let breakCount = zoom
-  const minCellWidth = 17
+  const minCellWidth = 12
 
   Object.keys(timeDividers).some(unit => {
     breakCount = breakCount / timeDividers[unit]

@@ -895,9 +895,9 @@ var _initialiseProps = function _initialiseProps() {
     var visibleTimeEnd = (0, _moment2.default)(from).add(1, unit).valueOf();
     var zoom = visibleTimeEnd - visibleTimeStart;
 
-    //should not allow to zoom more than min zoom (MV)
+    //should not allow to zoom more than min zoom
     if (_this3.props.minZoom && zoom < _this3.props.minZoom) {
-      return
+      return;
     }
 
     // clicked on the big header and already focused here, zoom out
