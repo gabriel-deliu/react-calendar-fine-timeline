@@ -890,12 +890,15 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.showPeriod = function (from, unit) {
+
+    const { minZoom } = this.props
+
     var visibleTimeStart = from.valueOf();
     var visibleTimeEnd = (0, _moment2.default)(from).add(1, unit).valueOf();
     var zoom = visibleTimeEnd - visibleTimeStart;
 
     // can't zoom in more than to show one hour
-    if (zoom < 360000) {
+    if (zoom < minZoom) {
       return;
     }
 
