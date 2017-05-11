@@ -896,7 +896,7 @@ var _initialiseProps = function _initialiseProps() {
     var zoom = visibleTimeEnd - visibleTimeStart;
 
     //should not allow to zoom more than min zoom (MV)
-    if (this.props.minZoom && zoom < this.props.minZoom) {
+    if (_this3.props.minZoom && zoom < _this3.props.minZoom) {
       return
     }
 
