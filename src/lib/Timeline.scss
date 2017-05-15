@@ -164,6 +164,10 @@ $weekend: rgba(250, 246, 225, 0.5);
       background: $header-background-color;
       border-bottom: $border-width solid $border-color;
       cursor: pointer;
+
+      &:hover {
+        background-color: lighten($header-background-color, 20%)!important;
+      }
     }
 
     .rct-label {
@@ -184,6 +188,10 @@ $weekend: rgba(250, 246, 225, 0.5);
 
       &.rct-first-of-type {
         border-left: $thick-border-width solid $border-color;
+      }
+
+      &:hover {
+        background-color: lighten($lower-header-background-color, 20%)!important;
       }
     }
   }
@@ -257,6 +265,13 @@ $weekend: rgba(250, 246, 225, 0.5);
     width: 2px;
     background: red;
   }
+
+  .rct-selected-time {
+      position: absolute;
+      width: 3px;
+      background: blue;
+      z-index: 10;
+    }
 
   .rct-infolabel {
     position: fixed;

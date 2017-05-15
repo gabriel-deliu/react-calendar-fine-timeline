@@ -9,6 +9,7 @@ import Header from './layout/Header'
 import VerticalLines from './lines/VerticalLines'
 import HorizontalLines from './lines/HorizontalLines'
 import TodayLine from './lines/TodayLine'
+import SelectedTimeLine from './lines/SelectedTimeLine'
 
 import { getMinUnit, getNextUnit, getParentPosition, _get, _length, stack, nostack, calculateDimensions, getGroupOrders, getVisibleItems, hasSomeParentTheClass } from './utils.js'
 
@@ -51,6 +52,7 @@ export default class ReactCalendarTimeline extends Component {
     maxZoom: PropTypes.number,
 
     clickTolerance: PropTypes.number,
+    selectedTimeTolerance: PropTypes.number,
 
     canChangeGroup: PropTypes.bool,
     canMove: PropTypes.bool,
@@ -88,6 +90,7 @@ export default class ReactCalendarTimeline extends Component {
     visibleTimeStart: PropTypes.number,
     visibleTimeEnd: PropTypes.number,
     onTimeChange: PropTypes.func,
+    onTimeSelected: PropTypes.func,
     onTimeInit: PropTypes.func,
     onBoundsChange: PropTypes.func,
 
@@ -110,6 +113,7 @@ export default class ReactCalendarTimeline extends Component {
     maxZoom: 5 * 365.24 * 86400 * 1000, // 5 years
 
     clickTolerance: 3, // how many pixels can we drag for it to be still considered a click?
+    selectedTimeTolerance: 60000,
 
     canChangeGroup: true,
     canMove: true,
@@ -147,7 +151,12 @@ export default class ReactCalendarTimeline extends Component {
     visibleTimeStart: null,
     visibleTimeEnd: null,
     onTimeChange: function (visibleTimeStart, visibleTimeEnd, updateScrollCanvas) {
-      updateScrollCanvas(visibleTimeStart, visibleTimeEnd)
+      if(visibleTimeEnd - visibleTimeStart > this.props.minZoom){
+        updateScrollCanvas(visibleTimeStart, visibleTimeEnd)
+      }
+    },
+    onTimeSelected: function(selectedTime, drawSelectedTime){
+      drawSelectedTime(selectedTime);
     },
     // called after the calendar loads and the visible time has been calculated
     onTimeInit: null,
@@ -196,7 +205,8 @@ export default class ReactCalendarTimeline extends Component {
       isDragging: false,
       topOffset: 0,
       resizingItem: null,
-      resizingEdge: null
+      resizingEdge: null,
+      selectedTime: null
     }
 
     const {
@@ -330,6 +340,14 @@ export default class ReactCalendarTimeline extends Component {
     this.refs.scrollComponent.scrollLeft = width
   }
 
+  onTimeSpanChanged = (visibleTimeStart, visibleTimeEnd, selectTime) => {
+    if(selectTime && visibleTimeEnd - visibleTimeStart <= this.props.minZoom){
+      this.props.onTimeSelected.bind(this)(visibleTimeStart, () => this.setState({selectedTime: visibleTimeStart}))
+    }
+
+    this.props.onTimeChange.bind(this)(visibleTimeStart, visibleTimeEnd, this.updateScrollCanvas)
+  }
+
   onScroll = () => {
     const scrollComponent = this.refs.scrollComponent
     const canvasTimeStart = this.state.canvasTimeStart
@@ -353,7 +371,7 @@ export default class ReactCalendarTimeline extends Component {
     }
 
     if (this.state.visibleTimeStart !== visibleTimeStart || this.state.visibleTimeEnd !== visibleTimeStart + zoom) {
-      this.props.onTimeChange.bind(this)(visibleTimeStart, visibleTimeStart + zoom, this.updateScrollCanvas)
+      this.onTimeSpanChanged(visibleTimeStart, visibleTimeStart + zoom)
     }
   }
 
@@ -487,7 +505,8 @@ export default class ReactCalendarTimeline extends Component {
     const newZoom = Math.min(Math.max(Math.round(oldZoom * scale), minZoom), maxZoom) // min 1 min, max 20 years
     const newVisibleTimeStart = Math.round(this.state.visibleTimeStart + (oldZoom - newZoom) * offset)
 
-    this.props.onTimeChange.bind(this)(newVisibleTimeStart, newVisibleTimeStart + newZoom, this.updateScrollCanvas)
+    this.onTimeSpanChanged(newVisibleTimeStart, newVisibleTimeStart + newZoom)
+
   }
 
   showPeriod = (from, unit) => {
@@ -510,7 +529,7 @@ export default class ReactCalendarTimeline extends Component {
       zoom = visibleTimeEnd - visibleTimeStart
     }
 
-    this.props.onTimeChange.bind(this)(visibleTimeStart, visibleTimeStart + zoom, this.updateScrollCanvas)
+    this.onTimeSpanChanged(visibleTimeStart, visibleTimeStart + zoom, true)
   }
 
   selectItem = (item, clickType, e) => {
@@ -628,6 +647,21 @@ export default class ReactCalendarTimeline extends Component {
                  lineCount={_length(this.props.groups)}
                  height={height}
                  headerHeight={headerHeight}
+      />
+    )
+  }
+
+  selectedTimeLine (canvasTimeStart, zoom, canvasTimeEnd, canvasWidth, minUnit, height, headerHeight, selectedTime) {
+
+    return (
+      <SelectedTimeLine canvasTimeStart={canvasTimeStart}
+                 canvasTimeEnd={canvasTimeEnd}
+                 canvasWidth={canvasWidth}
+                 lineHeight={this.props.lineHeight}
+                 lineCount={_length(this.props.groups)}
+                 height={height}
+                 headerHeight={headerHeight}
+                 selectedTime={selectedTime}
       />
     )
   }
@@ -876,6 +910,7 @@ export default class ReactCalendarTimeline extends Component {
               {this.verticalLines(canvasTimeStart, zoom, canvasTimeEnd, canvasWidth, minUnit, timeSteps, height, headerHeight)}
               {this.horizontalLines(canvasTimeStart, zoom, canvasTimeEnd, canvasWidth, groupHeights, headerHeight)}
               {this.todayLine(canvasTimeStart, zoom, canvasTimeEnd, canvasWidth, minUnit, height, headerHeight)}
+              {this.state.selectedTime && this.selectedTimeLine(canvasTimeStart, zoom, canvasTimeEnd, canvasWidth, minUnit, height, headerHeight, this.state.selectedTime)}
               {this.infoLabel()}
               {this.header(
                 canvasTimeStart,

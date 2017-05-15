@@ -120,6 +120,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _TodayLine2 = _interopRequireDefault(_TodayLine);
 	
+	var _SelectedTimeLine = __webpack_require__(20);
+	
+	var _SelectedTimeLine2 = _interopRequireDefault(_SelectedTimeLine);
+	
 	var _utils = __webpack_require__(11);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -203,7 +207,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      isDragging: false,
 	      topOffset: 0,
 	      resizingItem: null,
-	      resizingEdge: null
+	      resizingEdge: null,
+	      selectedTime: null
 	    };
 	
 	    var _this$stackItems = _this.stackItems(props.items, props.groups, _this.state.canvasTimeStart, _this.state.visibleTimeStart, _this.state.visibleTimeEnd, _this.state.width),
@@ -337,7 +342,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var newZoom = Math.min(Math.max(Math.round(oldZoom * scale), minZoom), maxZoom); // min 1 min, max 20 years
 	      var newVisibleTimeStart = Math.round(this.state.visibleTimeStart + (oldZoom - newZoom) * offset);
 	
-	      this.props.onTimeChange.bind(this)(newVisibleTimeStart, newVisibleTimeStart + newZoom, this.updateScrollCanvas);
+	      this.onTimeSpanChanged(newVisibleTimeStart, newVisibleTimeStart + newZoom);
 	    }
 	  }, {
 	    key: 'rowAndTimeFromEvent',
@@ -371,6 +376,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	        lineCount: (0, _utils._length)(this.props.groups),
 	        height: height,
 	        headerHeight: headerHeight
+	      });
+	    }
+	  }, {
+	    key: 'selectedTimeLine',
+	    value: function selectedTimeLine(canvasTimeStart, zoom, canvasTimeEnd, canvasWidth, minUnit, height, headerHeight, selectedTime) {
+	
+	      return _react2.default.createElement(_SelectedTimeLine2.default, { canvasTimeStart: canvasTimeStart,
+	        canvasTimeEnd: canvasTimeEnd,
+	        canvasWidth: canvasWidth,
+	        lineHeight: this.props.lineHeight,
+	        lineCount: (0, _utils._length)(this.props.groups),
+	        height: height,
+	        headerHeight: headerHeight,
+	        selectedTime: selectedTime
 	      });
 	    }
 	  }, {
@@ -630,6 +649,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	              this.verticalLines(canvasTimeStart, zoom, canvasTimeEnd, canvasWidth, minUnit, timeSteps, height, headerHeight),
 	              this.horizontalLines(canvasTimeStart, zoom, canvasTimeEnd, canvasWidth, groupHeights, headerHeight),
 	              this.todayLine(canvasTimeStart, zoom, canvasTimeEnd, canvasWidth, minUnit, height, headerHeight),
+	              this.state.selectedTime && this.selectedTimeLine(canvasTimeStart, zoom, canvasTimeEnd, canvasWidth, minUnit, height, headerHeight, this.state.selectedTime),
 	              this.infoLabel(),
 	              this.header(canvasTimeStart, zoom, canvasTimeEnd, canvasWidth, minUnit, timeSteps, headerLabelGroupHeight, headerLabelHeight)
 	            )
@@ -660,6 +680,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  maxZoom: _react.PropTypes.number,
 	
 	  clickTolerance: _react.PropTypes.number,
+	  selectedTimeTolerance: _react.PropTypes.number,
 	
 	  canChangeGroup: _react.PropTypes.bool,
 	  canMove: _react.PropTypes.bool,
@@ -697,6 +718,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  visibleTimeStart: _react.PropTypes.number,
 	  visibleTimeEnd: _react.PropTypes.number,
 	  onTimeChange: _react.PropTypes.func,
+	  onTimeSelected: _react.PropTypes.func,
 	  onTimeInit: _react.PropTypes.func,
 	  onBoundsChange: _react.PropTypes.func,
 	
@@ -718,6 +740,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  maxZoom: 5 * 365.24 * 86400 * 1000, // 5 years
 	
 	  clickTolerance: 3, // how many pixels can we drag for it to be still considered a click?
+	  selectedTimeTolerance: 60000,
 	
 	  canChangeGroup: true,
 	  canMove: true,
@@ -755,7 +778,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  visibleTimeStart: null,
 	  visibleTimeEnd: null,
 	  onTimeChange: function onTimeChange(visibleTimeStart, visibleTimeEnd, updateScrollCanvas) {
-	    updateScrollCanvas(visibleTimeStart, visibleTimeEnd);
+	    if (visibleTimeEnd - visibleTimeStart > this.props.minZoom) {
+	      updateScrollCanvas(visibleTimeStart, visibleTimeEnd);
+	    }
+	  },
+	  onTimeSelected: function onTimeSelected(selectedTime, drawSelectedTime) {
+	    drawSelectedTime(selectedTime);
 	  },
 	  // called after the calendar loads and the visible time has been calculated
 	  onTimeInit: null,
@@ -843,6 +871,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  };
 	
+	  this.onTimeSpanChanged = function (visibleTimeStart, visibleTimeEnd, selectTime) {
+	    if (selectTime && visibleTimeEnd - visibleTimeStart <= _this3.props.minZoom) {
+	      _this3.props.onTimeSelected.bind(_this3)(visibleTimeStart, function () {
+	        return _this3.setState({ selectedTime: visibleTimeStart });
+	      });
+	    }
+	
+	    _this3.props.onTimeChange.bind(_this3)(visibleTimeStart, visibleTimeEnd, _this3.updateScrollCanvas);
+	  };
+	
 	  this.onScroll = function () {
 	    var scrollComponent = _this3.refs.scrollComponent;
 	    var canvasTimeStart = _this3.state.canvasTimeStart;
@@ -866,7 +904,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	
 	    if (_this3.state.visibleTimeStart !== visibleTimeStart || _this3.state.visibleTimeEnd !== visibleTimeStart + zoom) {
-	      _this3.props.onTimeChange.bind(_this3)(visibleTimeStart, visibleTimeStart + zoom, _this3.updateScrollCanvas);
+	      _this3.onTimeSpanChanged(visibleTimeStart, visibleTimeStart + zoom);
 	    }
 	  };
 	
@@ -983,7 +1021,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      zoom = visibleTimeEnd - visibleTimeStart;
 	    }
 	
-	    _this3.props.onTimeChange.bind(_this3)(visibleTimeStart, visibleTimeStart + zoom, _this3.updateScrollCanvas);
+	    _this3.onTimeSpanChanged(visibleTimeStart, visibleTimeStart + zoom, true);
 	  };
 	
 	  this.selectItem = function (item, clickType, e) {
@@ -3243,6 +3281,76 @@ return /******/ (function(modules) { // webpackBootstrap
 	  lineCount: _react2.default.PropTypes.number.isRequired
 	};
 	TodayLine.defaultProps = {};
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var SelectedLine = function (_Component) {
+	  _inherits(SelectedLine, _Component);
+	
+	  function SelectedLine() {
+	    _classCallCheck(this, SelectedLine);
+	
+	    return _possibleConstructorReturn(this, (SelectedLine.__proto__ || Object.getPrototypeOf(SelectedLine)).apply(this, arguments));
+	  }
+	
+	  _createClass(SelectedLine, [{
+	    key: 'render',
+	    value: function render() {
+	
+	      if (this.props.selectedTime > this.props.canvasTimeStart && this.props.selectedTime < this.props.canvasTimeEnd) {
+	        var ratio = this.props.canvasWidth / (this.props.canvasTimeEnd - this.props.canvasTimeStart);
+	        var left = Math.round((this.props.selectedTime - this.props.canvasTimeStart) * ratio);
+	        var top = this.props.headerHeight;
+	        var height = this.props.height - this.props.headerHeight;
+	        var styles = {
+	          top: top + 'px',
+	          left: left + 'px',
+	          height: height + 'px'
+	        };
+	
+	        return _react2.default.createElement('div', { className: 'rct-selected-time', style: styles });
+	      } else {
+	        return _react2.default.createElement('div', null);
+	      }
+	    }
+	  }]);
+	
+	  return SelectedLine;
+	}(_react.Component);
+	
+	exports.default = SelectedLine;
+	
+	SelectedLine.propTypes = {
+	  canvasTimeStart: _react2.default.PropTypes.number.isRequired,
+	  canvasTimeEnd: _react2.default.PropTypes.number.isRequired,
+	  selectedTime: _react2.default.PropTypes.number.isRequired,
+	  canvasWidth: _react2.default.PropTypes.number.isRequired,
+	  lineHeight: _react2.default.PropTypes.number.isRequired,
+	  lineCount: _react2.default.PropTypes.number.isRequired
+	};
+	SelectedLine.defaultProps = {};
 
 /***/ }
 /******/ ])

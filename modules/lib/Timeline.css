@@ -99,6 +99,8 @@
     background: #c52020;
     border-bottom: 1px solid #bbb;
     cursor: pointer; }
+    .react-calendar-timeline .rct-header .rct-label-group:hover {
+      background-color: #e66565 !important; }
   .react-calendar-timeline .rct-header .rct-label {
     position: absolute;
     overflow: hidden;
@@ -114,6 +116,8 @@
       background: #c52020; }
     .react-calendar-timeline .rct-header .rct-label.rct-first-of-type {
       border-left: 2px solid #bbb; }
+    .react-calendar-timeline .rct-header .rct-label:hover {
+      background-color: white !important; }
 .react-calendar-timeline .rct-sidebar {
   overflow: hidden;
   display: inline-block;
@@ -161,6 +165,11 @@
   position: absolute;
   width: 2px;
   background: red; }
+.react-calendar-timeline .rct-selected-time {
+  position: absolute;
+  width: 3px;
+  background: blue;
+  z-index: 10; }
 .react-calendar-timeline .rct-infolabel {
   position: fixed;
   left: 100px;

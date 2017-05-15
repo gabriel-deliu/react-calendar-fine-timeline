@@ -46,6 +46,10 @@ var _TodayLine = require('./lines/TodayLine');
 
 var _TodayLine2 = _interopRequireDefault(_TodayLine);
 
+var _SelectedTimeLine = require('./lines/SelectedTimeLine');
+
+var _SelectedTimeLine2 = _interopRequireDefault(_SelectedTimeLine);
+
 var _utils = require('./utils.js');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -129,7 +133,8 @@ var ReactCalendarTimeline = function (_Component) {
       isDragging: false,
       topOffset: 0,
       resizingItem: null,
-      resizingEdge: null
+      resizingEdge: null,
+      selectedTime: null
     };
 
     var _this$stackItems = _this.stackItems(props.items, props.groups, _this.state.canvasTimeStart, _this.state.visibleTimeStart, _this.state.visibleTimeEnd, _this.state.width),
@@ -263,7 +268,7 @@ var ReactCalendarTimeline = function (_Component) {
       var newZoom = Math.min(Math.max(Math.round(oldZoom * scale), minZoom), maxZoom); // min 1 min, max 20 years
       var newVisibleTimeStart = Math.round(this.state.visibleTimeStart + (oldZoom - newZoom) * offset);
 
-      this.props.onTimeChange.bind(this)(newVisibleTimeStart, newVisibleTimeStart + newZoom, this.updateScrollCanvas);
+      this.onTimeSpanChanged(newVisibleTimeStart, newVisibleTimeStart + newZoom);
     }
   }, {
     key: 'rowAndTimeFromEvent',
@@ -297,6 +302,20 @@ var ReactCalendarTimeline = function (_Component) {
         lineCount: (0, _utils._length)(this.props.groups),
         height: height,
         headerHeight: headerHeight
+      });
+    }
+  }, {
+    key: 'selectedTimeLine',
+    value: function selectedTimeLine(canvasTimeStart, zoom, canvasTimeEnd, canvasWidth, minUnit, height, headerHeight, selectedTime) {
+
+      return _react2.default.createElement(_SelectedTimeLine2.default, { canvasTimeStart: canvasTimeStart,
+        canvasTimeEnd: canvasTimeEnd,
+        canvasWidth: canvasWidth,
+        lineHeight: this.props.lineHeight,
+        lineCount: (0, _utils._length)(this.props.groups),
+        height: height,
+        headerHeight: headerHeight,
+        selectedTime: selectedTime
       });
     }
   }, {
@@ -556,6 +575,7 @@ var ReactCalendarTimeline = function (_Component) {
               this.verticalLines(canvasTimeStart, zoom, canvasTimeEnd, canvasWidth, minUnit, timeSteps, height, headerHeight),
               this.horizontalLines(canvasTimeStart, zoom, canvasTimeEnd, canvasWidth, groupHeights, headerHeight),
               this.todayLine(canvasTimeStart, zoom, canvasTimeEnd, canvasWidth, minUnit, height, headerHeight),
+              this.state.selectedTime && this.selectedTimeLine(canvasTimeStart, zoom, canvasTimeEnd, canvasWidth, minUnit, height, headerHeight, this.state.selectedTime),
               this.infoLabel(),
               this.header(canvasTimeStart, zoom, canvasTimeEnd, canvasWidth, minUnit, timeSteps, headerLabelGroupHeight, headerLabelHeight)
             )
@@ -586,6 +606,7 @@ ReactCalendarTimeline.propTypes = {
   maxZoom: _react.PropTypes.number,
 
   clickTolerance: _react.PropTypes.number,
+  selectedTimeTolerance: _react.PropTypes.number,
 
   canChangeGroup: _react.PropTypes.bool,
   canMove: _react.PropTypes.bool,
@@ -623,6 +644,7 @@ ReactCalendarTimeline.propTypes = {
   visibleTimeStart: _react.PropTypes.number,
   visibleTimeEnd: _react.PropTypes.number,
   onTimeChange: _react.PropTypes.func,
+  onTimeSelected: _react.PropTypes.func,
   onTimeInit: _react.PropTypes.func,
   onBoundsChange: _react.PropTypes.func,
 
@@ -644,6 +666,7 @@ ReactCalendarTimeline.defaultProps = {
   maxZoom: 5 * 365.24 * 86400 * 1000, // 5 years
 
   clickTolerance: 3, // how many pixels can we drag for it to be still considered a click?
+  selectedTimeTolerance: 60000,
 
   canChangeGroup: true,
   canMove: true,
@@ -681,7 +704,12 @@ ReactCalendarTimeline.defaultProps = {
   visibleTimeStart: null,
   visibleTimeEnd: null,
   onTimeChange: function onTimeChange(visibleTimeStart, visibleTimeEnd, updateScrollCanvas) {
-    updateScrollCanvas(visibleTimeStart, visibleTimeEnd);
+    if (visibleTimeEnd - visibleTimeStart > this.props.minZoom) {
+      updateScrollCanvas(visibleTimeStart, visibleTimeEnd);
+    }
+  },
+  onTimeSelected: function onTimeSelected(selectedTime, drawSelectedTime) {
+    drawSelectedTime(selectedTime);
   },
   // called after the calendar loads and the visible time has been calculated
   onTimeInit: null,
@@ -769,6 +797,16 @@ var _initialiseProps = function _initialiseProps() {
     }
   };
 
+  this.onTimeSpanChanged = function (visibleTimeStart, visibleTimeEnd, selectTime) {
+    if (selectTime && visibleTimeEnd - visibleTimeStart <= _this3.props.minZoom) {
+      _this3.props.onTimeSelected.bind(_this3)(visibleTimeStart, function () {
+        return _this3.setState({ selectedTime: visibleTimeStart });
+      });
+    }
+
+    _this3.props.onTimeChange.bind(_this3)(visibleTimeStart, visibleTimeEnd, _this3.updateScrollCanvas);
+  };
+
   this.onScroll = function () {
     var scrollComponent = _this3.refs.scrollComponent;
     var canvasTimeStart = _this3.state.canvasTimeStart;
@@ -792,7 +830,7 @@ var _initialiseProps = function _initialiseProps() {
     }
 
     if (_this3.state.visibleTimeStart !== visibleTimeStart || _this3.state.visibleTimeEnd !== visibleTimeStart + zoom) {
-      _this3.props.onTimeChange.bind(_this3)(visibleTimeStart, visibleTimeStart + zoom, _this3.updateScrollCanvas);
+      _this3.onTimeSpanChanged(visibleTimeStart, visibleTimeStart + zoom);
     }
   };
 
@@ -909,7 +947,7 @@ var _initialiseProps = function _initialiseProps() {
       zoom = visibleTimeEnd - visibleTimeStart;
     }
 
-    _this3.props.onTimeChange.bind(_this3)(visibleTimeStart, visibleTimeStart + zoom, _this3.updateScrollCanvas);
+    _this3.onTimeSpanChanged(visibleTimeStart, visibleTimeStart + zoom, true);
   };
 
   this.selectItem = function (item, clickType, e) {
