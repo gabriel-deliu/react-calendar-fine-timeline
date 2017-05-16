@@ -134,7 +134,7 @@ var ReactCalendarTimeline = function (_Component) {
       topOffset: 0,
       resizingItem: null,
       resizingEdge: null,
-      selectedTime: null
+      selectedTime: _this.props.selectedTime && parseInt(_this.props.selectedTime)
     };
 
     var _this$stackItems = _this.stackItems(props.items, props.groups, _this.state.canvasTimeStart, _this.state.visibleTimeStart, _this.state.visibleTimeEnd, _this.state.width),
@@ -607,6 +607,7 @@ ReactCalendarTimeline.propTypes = {
 
   clickTolerance: _react.PropTypes.number,
   selectedTimeTolerance: _react.PropTypes.number,
+  selectedTime: _react.PropTypes.string,
 
   canChangeGroup: _react.PropTypes.bool,
   canMove: _react.PropTypes.bool,
@@ -667,6 +668,7 @@ ReactCalendarTimeline.defaultProps = {
 
   clickTolerance: 3, // how many pixels can we drag for it to be still considered a click?
   selectedTimeTolerance: 60000,
+  selectedTime: null,
 
   canChangeGroup: true,
   canMove: true,

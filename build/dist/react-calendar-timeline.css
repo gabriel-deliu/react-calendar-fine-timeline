@@ -180,7 +180,7 @@
 .react-calendar-timeline .rct-selected-time {
   position: absolute;
   width: 3px;
-  background: blue;
+  background: darkblue;
   z-index: 10; }
 
 .react-calendar-timeline .rct-infolabel {

@@ -53,6 +53,7 @@ export default class ReactCalendarTimeline extends Component {
 
     clickTolerance: PropTypes.number,
     selectedTimeTolerance: PropTypes.number,
+    selectedTime: PropTypes.string,
 
     canChangeGroup: PropTypes.bool,
     canMove: PropTypes.bool,
@@ -114,6 +115,7 @@ export default class ReactCalendarTimeline extends Component {
 
     clickTolerance: 3, // how many pixels can we drag for it to be still considered a click?
     selectedTimeTolerance: 60000,
+    selectedTime: null,
 
     canChangeGroup: true,
     canMove: true,
@@ -206,7 +208,7 @@ export default class ReactCalendarTimeline extends Component {
       topOffset: 0,
       resizingItem: null,
       resizingEdge: null,
-      selectedTime: null
+      selectedTime: this.props.selectedTime && parseInt(this.props.selectedTime)
     }
 
     const {
