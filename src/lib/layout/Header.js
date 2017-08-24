@@ -15,8 +15,8 @@ export default class Header extends Component {
   }
 
   scroll (e) {
-    if (this.props.fixedHeader === 'absolute' && window && window.document) {
-      const scroll = window.document.body.scrollTop
+    if (window && window.document) {
+      const scroll = window.document.body.scrollTop;
       this.setState({
         scrollTop: scroll
       })
@@ -24,9 +24,15 @@ export default class Header extends Component {
   }
 
   setComponentTop () {
-    const viewportOffset = this.refs.header.getBoundingClientRect()
+    let viewportOffset;
+    if (this.props.fixedHeader === 'fixed') {
+      viewportOffset = this.refs.header.parentNode.getBoundingClientRect();
+    } else {
+      viewportOffset = this.refs.header.getBoundingClientRect();
+    }    
+    const scroll = window.document.body.scrollTop;
     this.setState({
-      componentTop: viewportOffset.top
+      componentTop: viewportOffset.top + scroll
     })
   }
 
@@ -200,12 +206,14 @@ export default class Header extends Component {
       lineHeight: `${lineHeight}px`
     }
 
+    let componentTop = this.state.componentTop
+
     if (fixedHeader === 'fixed') {
       headerStyle.position = 'fixed'
       headerStyle.width = '100%'
-      headerStyle.zIndex = zIndex
-    } else if (fixedHeader === 'absolute') {
-      let componentTop = this.state.componentTop
+      headerStyle.zIndex = zIndex      
+      headerStyle.top = `${componentTop - scrollTop}px`
+    } else if (fixedHeader === 'absolute') {      
       if (scrollTop >= componentTop) {
         headerStyle.position = 'absolute'
         headerStyle.top = `${scrollTop - componentTop}px`

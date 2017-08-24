@@ -80,7 +80,7 @@ var Header = function (_Component) {
   _createClass(Header, [{
     key: 'scroll',
     value: function scroll(e) {
-      if (this.props.fixedHeader === 'absolute' && window && window.document) {
+      if (window && window.document) {
         var scroll = window.document.body.scrollTop;
         this.setState({
           scrollTop: scroll
@@ -90,9 +90,15 @@ var Header = function (_Component) {
   }, {
     key: 'setComponentTop',
     value: function setComponentTop() {
-      var viewportOffset = this.refs.header.getBoundingClientRect();
+      var viewportOffset = void 0;
+      if (this.props.fixedHeader === 'fixed') {
+        viewportOffset = this.refs.header.parentNode.getBoundingClientRect();
+      } else {
+        viewportOffset = this.refs.header.getBoundingClientRect();
+      }
+      var scroll = window.document.body.scrollTop;
       this.setState({
-        componentTop: viewportOffset.top
+        componentTop: viewportOffset.top + scroll
       });
     }
   }, {
@@ -251,12 +257,14 @@ var Header = function (_Component) {
         lineHeight: lineHeight + 'px'
       };
 
+      var componentTop = this.state.componentTop;
+
       if (fixedHeader === 'fixed') {
         headerStyle.position = 'fixed';
         headerStyle.width = '100%';
         headerStyle.zIndex = zIndex;
+        headerStyle.top = componentTop - scrollTop + 'px';
       } else if (fixedHeader === 'absolute') {
-        var componentTop = this.state.componentTop;
         if (scrollTop >= componentTop) {
           headerStyle.position = 'absolute';
           headerStyle.top = scrollTop - componentTop + 'px';

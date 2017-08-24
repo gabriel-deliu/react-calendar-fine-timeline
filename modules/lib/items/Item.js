@@ -30,6 +30,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var MIN_Y_COORD = -10000000;
+
 var Item = function (_Component) {
   _inherits(Item, _Component);
 
@@ -451,10 +453,13 @@ var Item = function (_Component) {
 
       var classNames = 'rct-item' + (this.props.selected ? ' selected' : '') + (this.canMove(this.props) ? ' can-move' : '') + (this.canResizeLeft(this.props) || this.canResizeRight(this.props) ? ' can-resize' : '') + (this.canResizeLeft(this.props) ? ' can-resize-left' : '') + (this.canResizeRight(this.props) ? ' can-resize-right' : '') + (this.props.item.className ? ' ' + this.props.item.className : '') + (dimensions.clippedLeft ? ' clipped-left' : '') + (dimensions.clippedRight ? ' clipped-right' : '');
 
+      var adjustedLeft = dimensions.left < MIN_Y_COORD ? MIN_Y_COORD : dimensions.left;
+      var adjustedWidth = dimensions.left < MIN_Y_COORD ? dimensions.width + dimensions.left - MIN_Y_COORD : dimensions.width;
+
       var style = {
-        left: dimensions.left + 'px',
+        left: adjustedLeft + 'px',
         top: dimensions.top + 'px',
-        width: dimensions.width + 'px',
+        width: adjustedWidth + 'px',
         height: dimensions.height + 'px',
         lineHeight: dimensions.height + 'px'
       };

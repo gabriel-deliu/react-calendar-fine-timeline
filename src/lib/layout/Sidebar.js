@@ -12,7 +12,7 @@ export default class Sidebar extends Component {
   }
 
   shouldComponentUpdate (nextProps, nextState) {
-    if (nextProps.fixedHeader === 'absolute' && window && window.document && this.state.scrollTop !== nextState.scrollTop) {
+    if (window && window.document && this.state.scrollTop !== nextState.scrollTop) {
       return true
     }
 
@@ -27,7 +27,7 @@ export default class Sidebar extends Component {
   }
 
   scroll (e) {
-    if (this.props.fixedHeader === 'absolute' && window && window.document) {
+    if (window && window.document) {
       const scroll = window.document.body.scrollTop
       this.setState({
         scrollTop: scroll
@@ -36,9 +36,15 @@ export default class Sidebar extends Component {
   }
 
   setComponentTop () {
-    const viewportOffset = this.refs.sidebar.getBoundingClientRect()
+    let viewportOffset;
+    if (this.props.fixedHeader === 'fixed') {
+      viewportOffset = this.refs.sidebar.parentNode.getBoundingClientRect();
+    } else {
+      viewportOffset = this.refs.sidebar.getBoundingClientRect();
+    }
+    const scroll = window.document.body.scrollTop;
     this.setState({
-      componentTop: viewportOffset.top
+      componentTop: viewportOffset.top + scroll
     })
   }
 
@@ -89,12 +95,13 @@ export default class Sidebar extends Component {
       width: `${width}px`
     }
 
+    let componentTop = this.state.componentTop
     if (fixedHeader === 'fixed') {
       headerStyle.position = 'fixed'
       headerStyle.zIndex = zIndex
       groupsStyle.paddingTop = headerStyle.height
-    } else if (fixedHeader === 'absolute') {
-      let componentTop = this.state.componentTop
+      headerStyle.top = `${componentTop - scrollTop}px`
+    } else if (fixedHeader === 'absolute') {      
       if (scrollTop >= componentTop) {
         headerStyle.position = 'absolute'
         headerStyle.top = `${scrollTop - componentTop}px`

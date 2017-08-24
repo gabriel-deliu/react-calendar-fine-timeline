@@ -4,6 +4,8 @@ import moment from 'moment'
 
 import { _get, deepObjectCompare } from '../utils'
 
+const MIN_Y_COORD = -10000000;
+
 export default class Item extends Component {
   // removed prop type check for SPEED!
   // they are coming from a trusted component anyway
@@ -437,10 +439,13 @@ export default class Item extends Component {
                        (dimensions.clippedLeft ? ' clipped-left' : '') +
                        (dimensions.clippedRight ? ' clipped-right' : '')
 
+    const adjustedLeft = dimensions.left < MIN_Y_COORD ? MIN_Y_COORD : dimensions.left;
+    const adjustedWidth = dimensions.left < MIN_Y_COORD ? dimensions.width + dimensions.left - MIN_Y_COORD : dimensions.width;
+
     const style = {
-      left: `${dimensions.left}px`,
+      left: `${adjustedLeft}px`,
       top: `${dimensions.top}px`,
-      width: `${dimensions.width}px`,
+      width: `${adjustedWidth}px`,
       height: `${dimensions.height}px`,
       lineHeight: `${dimensions.height}px`
     }

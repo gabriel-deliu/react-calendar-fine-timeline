@@ -38,7 +38,7 @@ var Sidebar = function (_Component) {
   _createClass(Sidebar, [{
     key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate(nextProps, nextState) {
-      if (nextProps.fixedHeader === 'absolute' && window && window.document && this.state.scrollTop !== nextState.scrollTop) {
+      if (window && window.document && this.state.scrollTop !== nextState.scrollTop) {
         return true;
       }
 
@@ -47,7 +47,7 @@ var Sidebar = function (_Component) {
   }, {
     key: 'scroll',
     value: function scroll(e) {
-      if (this.props.fixedHeader === 'absolute' && window && window.document) {
+      if (window && window.document) {
         var scroll = window.document.body.scrollTop;
         this.setState({
           scrollTop: scroll
@@ -57,9 +57,15 @@ var Sidebar = function (_Component) {
   }, {
     key: 'setComponentTop',
     value: function setComponentTop() {
-      var viewportOffset = this.refs.sidebar.getBoundingClientRect();
+      var viewportOffset = void 0;
+      if (this.props.fixedHeader === 'fixed') {
+        viewportOffset = this.refs.sidebar.parentNode.getBoundingClientRect();
+      } else {
+        viewportOffset = this.refs.sidebar.getBoundingClientRect();
+      }
+      var scroll = window.document.body.scrollTop;
       this.setState({
-        componentTop: viewportOffset.top
+        componentTop: viewportOffset.top + scroll
       });
     }
   }, {
@@ -120,12 +126,13 @@ var Sidebar = function (_Component) {
         width: width + 'px'
       };
 
+      var componentTop = this.state.componentTop;
       if (fixedHeader === 'fixed') {
         headerStyle.position = 'fixed';
         headerStyle.zIndex = zIndex;
         groupsStyle.paddingTop = headerStyle.height;
+        headerStyle.top = componentTop - scrollTop + 'px';
       } else if (fixedHeader === 'absolute') {
-        var componentTop = this.state.componentTop;
         if (scrollTop >= componentTop) {
           headerStyle.position = 'absolute';
           headerStyle.top = scrollTop - componentTop + 'px';

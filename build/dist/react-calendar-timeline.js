@@ -1418,6 +1418,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var MIN_Y_COORD = -10000000;
+	
 	var Item = function (_Component) {
 	  _inherits(Item, _Component);
 	
@@ -1839,10 +1841,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      var classNames = 'rct-item' + (this.props.selected ? ' selected' : '') + (this.canMove(this.props) ? ' can-move' : '') + (this.canResizeLeft(this.props) || this.canResizeRight(this.props) ? ' can-resize' : '') + (this.canResizeLeft(this.props) ? ' can-resize-left' : '') + (this.canResizeRight(this.props) ? ' can-resize-right' : '') + (this.props.item.className ? ' ' + this.props.item.className : '') + (dimensions.clippedLeft ? ' clipped-left' : '') + (dimensions.clippedRight ? ' clipped-right' : '');
 	
+	      var adjustedLeft = dimensions.left < MIN_Y_COORD ? MIN_Y_COORD : dimensions.left;
+	      var adjustedWidth = dimensions.left < MIN_Y_COORD ? dimensions.width + dimensions.left - MIN_Y_COORD : dimensions.width;
+	
 	      var style = {
-	        left: dimensions.left + 'px',
+	        left: adjustedLeft + 'px',
 	        top: dimensions.top + 'px',
-	        width: dimensions.width + 'px',
+	        width: adjustedWidth + 'px',
 	        height: dimensions.height + 'px',
 	        lineHeight: dimensions.height + 'px'
 	      };
@@ -2558,7 +2563,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _createClass(Sidebar, [{
 	    key: 'shouldComponentUpdate',
 	    value: function shouldComponentUpdate(nextProps, nextState) {
-	      if (nextProps.fixedHeader === 'absolute' && window && window.document && this.state.scrollTop !== nextState.scrollTop) {
+	      if (window && window.document && this.state.scrollTop !== nextState.scrollTop) {
 	        return true;
 	      }
 	
@@ -2567,7 +2572,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'scroll',
 	    value: function scroll(e) {
-	      if (this.props.fixedHeader === 'absolute' && window && window.document) {
+	      if (window && window.document) {
 	        var scroll = window.document.body.scrollTop;
 	        this.setState({
 	          scrollTop: scroll
@@ -2577,9 +2582,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'setComponentTop',
 	    value: function setComponentTop() {
-	      var viewportOffset = this.refs.sidebar.getBoundingClientRect();
+	      var viewportOffset = void 0;
+	      if (this.props.fixedHeader === 'fixed') {
+	        viewportOffset = this.refs.sidebar.parentNode.getBoundingClientRect();
+	      } else {
+	        viewportOffset = this.refs.sidebar.getBoundingClientRect();
+	      }
+	      var scroll = window.document.body.scrollTop;
 	      this.setState({
-	        componentTop: viewportOffset.top
+	        componentTop: viewportOffset.top + scroll
 	      });
 	    }
 	  }, {
@@ -2640,12 +2651,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        width: width + 'px'
 	      };
 	
+	      var componentTop = this.state.componentTop;
 	      if (fixedHeader === 'fixed') {
 	        headerStyle.position = 'fixed';
 	        headerStyle.zIndex = zIndex;
 	        groupsStyle.paddingTop = headerStyle.height;
+	        headerStyle.top = componentTop - scrollTop + 'px';
 	      } else if (fixedHeader === 'absolute') {
-	        var componentTop = this.state.componentTop;
 	        if (scrollTop >= componentTop) {
 	          headerStyle.position = 'absolute';
 	          headerStyle.top = scrollTop - componentTop + 'px';
@@ -2797,7 +2809,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _createClass(Header, [{
 	    key: 'scroll',
 	    value: function scroll(e) {
-	      if (this.props.fixedHeader === 'absolute' && window && window.document) {
+	      if (window && window.document) {
 	        var scroll = window.document.body.scrollTop;
 	        this.setState({
 	          scrollTop: scroll
@@ -2807,9 +2819,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'setComponentTop',
 	    value: function setComponentTop() {
-	      var viewportOffset = this.refs.header.getBoundingClientRect();
+	      var viewportOffset = void 0;
+	      if (this.props.fixedHeader === 'fixed') {
+	        viewportOffset = this.refs.header.parentNode.getBoundingClientRect();
+	      } else {
+	        viewportOffset = this.refs.header.getBoundingClientRect();
+	      }
+	      var scroll = window.document.body.scrollTop;
 	      this.setState({
-	        componentTop: viewportOffset.top
+	        componentTop: viewportOffset.top + scroll
 	      });
 	    }
 	  }, {
@@ -2968,12 +2986,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        lineHeight: lineHeight + 'px'
 	      };
 	
+	      var componentTop = this.state.componentTop;
+	
 	      if (fixedHeader === 'fixed') {
 	        headerStyle.position = 'fixed';
 	        headerStyle.width = '100%';
 	        headerStyle.zIndex = zIndex;
+	        headerStyle.top = componentTop - scrollTop + 'px';
 	      } else if (fixedHeader === 'absolute') {
-	        var componentTop = this.state.componentTop;
 	        if (scrollTop >= componentTop) {
 	          headerStyle.position = 'absolute';
 	          headerStyle.top = scrollTop - componentTop + 'px';
