@@ -25,6 +25,7 @@ exports.groupBy = groupBy;
 exports.hasSomeParentTheClass = hasSomeParentTheClass;
 exports.createGradientPattern = createGradientPattern;
 exports.deepObjectCompare = deepObjectCompare;
+exports.getTrueScrollTop = getTrueScrollTop;
 
 var _moment = require('moment');
 
@@ -463,3 +464,7 @@ function deepObjectCompare(obj1, obj2) {
   }
   return true;
 };
+
+function getTrueScrollTop(element) {
+  return (element.scrollTop || 0) + (element.parentNode ? getTrueScrollTop(element.parentNode) : 0);
+}

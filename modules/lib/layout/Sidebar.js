@@ -58,12 +58,13 @@ var Sidebar = function (_Component) {
     key: 'setComponentTop',
     value: function setComponentTop() {
       var viewportOffset = void 0;
+      var scroll = 0;
       if (this.props.fixedHeader === 'fixed') {
         viewportOffset = this.refs.sidebar.parentNode.getBoundingClientRect();
+        scroll = (0, _utils.getTrueScrollTop)(this.refs.sidebar.parentNode);
       } else {
         viewportOffset = this.refs.sidebar.getBoundingClientRect();
       }
-      var scroll = window.document.body.scrollTop;
       this.setState({
         componentTop: viewportOffset.top + scroll
       });

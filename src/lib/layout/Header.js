@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 
-import { iterateTimes, getNextUnit } from '../utils.js'
+import { iterateTimes, getNextUnit, getTrueScrollTop } from '../utils.js'
 
 export default class Header extends Component {
   constructor (props) {
@@ -25,12 +25,13 @@ export default class Header extends Component {
 
   setComponentTop () {
     let viewportOffset;
+    let scroll = 0;
     if (this.props.fixedHeader === 'fixed') {
       viewportOffset = this.refs.header.parentNode.getBoundingClientRect();
+      scroll = getTrueScrollTop(this.refs.header.parentNode);
     } else {
       viewportOffset = this.refs.header.getBoundingClientRect();
-    }    
-    const scroll = window.document.body.scrollTop;
+    }        
     this.setState({
       componentTop: viewportOffset.top + scroll
     })

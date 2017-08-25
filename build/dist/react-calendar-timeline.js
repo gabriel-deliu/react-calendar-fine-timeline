@@ -1952,6 +1952,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.hasSomeParentTheClass = hasSomeParentTheClass;
 	exports.createGradientPattern = createGradientPattern;
 	exports.deepObjectCompare = deepObjectCompare;
+	exports.getTrueScrollTop = getTrueScrollTop;
 	
 	var _moment = __webpack_require__(3);
 	
@@ -2390,6 +2391,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	  return true;
 	};
+	
+	function getTrueScrollTop(element) {
+	  return (element.scrollTop || 0) + (element.parentNode ? getTrueScrollTop(element.parentNode) : 0);
+	}
 
 /***/ },
 /* 12 */
@@ -2583,12 +2588,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'setComponentTop',
 	    value: function setComponentTop() {
 	      var viewportOffset = void 0;
+	      var scroll = 0;
 	      if (this.props.fixedHeader === 'fixed') {
 	        viewportOffset = this.refs.sidebar.parentNode.getBoundingClientRect();
+	        scroll = (0, _utils.getTrueScrollTop)(this.refs.sidebar.parentNode);
 	      } else {
 	        viewportOffset = this.refs.sidebar.getBoundingClientRect();
 	      }
-	      var scroll = window.document.body.scrollTop;
 	      this.setState({
 	        componentTop: viewportOffset.top + scroll
 	      });
@@ -2820,12 +2826,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'setComponentTop',
 	    value: function setComponentTop() {
 	      var viewportOffset = void 0;
+	      var scroll = 0;
 	      if (this.props.fixedHeader === 'fixed') {
 	        viewportOffset = this.refs.header.parentNode.getBoundingClientRect();
+	        scroll = (0, _utils.getTrueScrollTop)(this.refs.header.parentNode);
 	      } else {
 	        viewportOffset = this.refs.header.getBoundingClientRect();
 	      }
-	      var scroll = window.document.body.scrollTop;
 	      this.setState({
 	        componentTop: viewportOffset.top + scroll
 	      });

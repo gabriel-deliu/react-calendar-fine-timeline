@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { _get, arraysEqual } from '../utils'
+import { _get, arraysEqual, getTrueScrollTop } from '../utils'
 
 export default class Sidebar extends Component {
   constructor (props) {
@@ -37,12 +37,13 @@ export default class Sidebar extends Component {
 
   setComponentTop () {
     let viewportOffset;
+    let scroll = 0; 
     if (this.props.fixedHeader === 'fixed') {
       viewportOffset = this.refs.sidebar.parentNode.getBoundingClientRect();
+      scroll = getTrueScrollTop(this.refs.sidebar.parentNode);
     } else {
       viewportOffset = this.refs.sidebar.getBoundingClientRect();
     }
-    const scroll = window.document.body.scrollTop;
     this.setState({
       componentTop: viewportOffset.top + scroll
     })

@@ -382,3 +382,7 @@ export function deepObjectCompare (obj1, obj2) {
   }
   return true
 };
+
+export function getTrueScrollTop (element) {
+  return (element.scrollTop || 0) + (element.parentNode ? getTrueScrollTop(element.parentNode) : 0);
+}
