@@ -10,6 +10,17 @@
   overflow-y: hidden;
   -ms-touch-action: none;
   touch-action: none; }
+  .react-calendar-timeline .rct-scroll > .move-canvas {
+    position: absolute;
+    z-index: 1000;
+    padding: 0 8px;
+    font-size: 40px;
+    background-color: #eee;
+    color: #333; }
+  .react-calendar-timeline .rct-scroll > .move-canvas-right {
+    right: 15px; }
+  .react-calendar-timeline .rct-scroll > .move-canvas:hover {
+    background-color: #ccc; }
 .react-calendar-timeline .rct-canvas {
   position: relative; }
 .react-calendar-timeline .rct-items .rct-item {

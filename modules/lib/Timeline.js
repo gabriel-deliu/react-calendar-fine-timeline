@@ -564,6 +564,24 @@ var ReactCalendarTimeline = function (_Component) {
               onMouseMove: this.handleMouseMove,
               onMouseUp: this.handleMouseUp
             },
+            this.props.showArrows && _react2.default.createElement(
+              'div',
+              { className: 'move-canvas move-canvas-left', onClick: this.onMoveCanvasLeftClick },
+              _react2.default.createElement(
+                'span',
+                { className: 'arrow-text' },
+                '<'
+              )
+            ),
+            this.props.showArrows && _react2.default.createElement(
+              'div',
+              { className: 'move-canvas move-canvas-right', onClick: this.onMoveCanvasRightClick },
+              _react2.default.createElement(
+                'span',
+                { className: 'arrow-text' },
+                '>'
+              )
+            ),
             _react2.default.createElement(
               'div',
               { ref: 'canvasComponent',
@@ -648,6 +666,7 @@ ReactCalendarTimeline.propTypes = {
   onTimeSelected: _react.PropTypes.func,
   onTimeInit: _react.PropTypes.func,
   onBoundsChange: _react.PropTypes.func,
+  showArrows: _react.PropTypes.bool,
 
   children: _react.PropTypes.node
 };
@@ -717,7 +736,8 @@ ReactCalendarTimeline.defaultProps = {
   onTimeInit: null,
   // called when the canvas area of the calendar changes
   onBoundsChange: null,
-  children: null
+  children: null,
+  showArrows: true
 };
 
 var _initialiseProps = function _initialiseProps() {
@@ -834,6 +854,34 @@ var _initialiseProps = function _initialiseProps() {
     if (_this3.state.visibleTimeStart !== visibleTimeStart || _this3.state.visibleTimeEnd !== visibleTimeStart + zoom) {
       _this3.onTimeSpanChanged(visibleTimeStart, visibleTimeStart + zoom);
     }
+  };
+
+  this.onMoveCanvasLeftClick = function () {
+    var timeSpan = _this3.state.visibleTimeEnd - _this3.state.visibleTimeStart;
+    var scrollComponent = _this3.refs.scrollComponent;
+    var visibleTimeStart = _this3.state.visibleTimeStart - timeSpan;
+    var visibleTimeEnd = _this3.state.visibleTimeStart;
+
+    _this3.setState({
+      canvasTimeStart: visibleTimeStart
+    });
+    scrollComponent.scrollLeft -= _this3.state.width;
+
+    _this3.onTimeSpanChanged(visibleTimeStart, visibleTimeEnd);
+  };
+
+  this.onMoveCanvasRightClick = function () {
+    var timeSpan = _this3.state.visibleTimeEnd - _this3.state.visibleTimeStart;
+    var scrollComponent = _this3.refs.scrollComponent;
+    var visibleTimeStart = _this3.state.visibleTimeEnd;
+    var visibleTimeEnd = _this3.state.visibleTimeEnd + timeSpan;
+
+    _this3.setState({
+      canvasTimeStart: visibleTimeStart
+    });
+    scrollComponent.scrollLeft += _this3.state.width;
+
+    _this3.onTimeSpanChanged(visibleTimeStart, visibleTimeEnd);
   };
 
   this.updateScrollCanvas = function (visibleTimeStart, visibleTimeEnd, forceUpdateDimensions, updatedItems, updatedGroups) {

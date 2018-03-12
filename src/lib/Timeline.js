@@ -94,6 +94,7 @@ export default class ReactCalendarTimeline extends Component {
     onTimeSelected: PropTypes.func,
     onTimeInit: PropTypes.func,
     onBoundsChange: PropTypes.func,
+    showArrows: PropTypes.bool,
 
     children: PropTypes.node
   }
@@ -164,7 +165,8 @@ export default class ReactCalendarTimeline extends Component {
     onTimeInit: null,
     // called when the canvas area of the calendar changes
     onBoundsChange: null,
-    children: null
+    children: null,
+    showArrows: true
   }
 
   constructor (props) {
@@ -375,6 +377,34 @@ export default class ReactCalendarTimeline extends Component {
     if (this.state.visibleTimeStart !== visibleTimeStart || this.state.visibleTimeEnd !== visibleTimeStart + zoom) {
       this.onTimeSpanChanged(visibleTimeStart, visibleTimeStart + zoom)
     }
+  }
+
+  onMoveCanvasLeftClick = () => {
+    const timeSpan = this.state.visibleTimeEnd - this.state.visibleTimeStart;
+    const scrollComponent = this.refs.scrollComponent;  
+    const visibleTimeStart = this.state.visibleTimeStart - timeSpan;
+    const visibleTimeEnd = this.state.visibleTimeStart;
+
+    this.setState({
+      canvasTimeStart: visibleTimeStart
+    })
+    scrollComponent.scrollLeft -= this.state.width
+
+    this.onTimeSpanChanged(visibleTimeStart, visibleTimeEnd);    
+  }
+
+  onMoveCanvasRightClick = () => {
+    const timeSpan = this.state.visibleTimeEnd - this.state.visibleTimeStart;
+    const scrollComponent = this.refs.scrollComponent;
+    const visibleTimeStart = this.state.visibleTimeEnd;
+    const visibleTimeEnd = this.state.visibleTimeEnd + timeSpan;
+
+    this.setState({
+      canvasTimeStart: visibleTimeStart
+    })
+    scrollComponent.scrollLeft += this.state.width
+
+    this.onTimeSpanChanged(visibleTimeStart, visibleTimeEnd);    
   }
 
   componentWillReceiveProps (nextProps) {
@@ -903,6 +933,8 @@ export default class ReactCalendarTimeline extends Component {
                onMouseMove={this.handleMouseMove}
                onMouseUp={this.handleMouseUp}
           >
+            {this.props.showArrows && <div className="move-canvas move-canvas-left" onClick={this.onMoveCanvasLeftClick}><span className="arrow-text">&lt;</span></div>}
+            {this.props.showArrows && <div className="move-canvas move-canvas-right" onClick={this.onMoveCanvasRightClick}><span className="arrow-text">&gt;</span></div>}
             <div ref='canvasComponent'
                  className='rct-canvas'
                  style={canvasComponentStyle}

@@ -37,6 +37,22 @@ $weekend: rgba(250, 246, 225, 0.5);
     overflow-y: hidden;
     -ms-touch-action: none;
     touch-action: none;
+    &>.move-canvas {
+      position: absolute;      
+      z-index: 1000;
+      padding: 0 8px;
+      font-size: 40px;
+      background-color: #eee;
+      color: #333;      
+    }
+    &>.move-canvas-left {
+    }
+    &>.move-canvas-right {
+      right: 15px;
+    }
+    &>.move-canvas:hover {
+      background-color: #ccc;
+    }
   }
 
   .rct-canvas {
