@@ -1,6 +1,6 @@
 {
   "name": "react-calendar-fine-timeline",
-  "version": "0.12.34",
+  "version": "0.12.35",
   "description": "react calendar timeline",
   "main": "modules/index.js",
   "scripts": {
@@ -43,7 +43,8 @@
   },
   "dependencies": {
     "interact.js": "^1.2.6",
-    "react-pure-render": "^1.0.2"
+    "react-pure-render": "^1.0.2",
+    "prop-types": "15.6.2"
   },
   "peerDependencies": {
     "interact.js": "*",

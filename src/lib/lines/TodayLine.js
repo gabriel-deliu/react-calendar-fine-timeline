@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 export default class TodayLine extends Component {
   // TODO: should currentTime come from a prop? probably...?
@@ -23,11 +24,11 @@ export default class TodayLine extends Component {
   }
 }
 TodayLine.propTypes = {
-  canvasTimeStart: React.PropTypes.number.isRequired,
-  canvasTimeEnd: React.PropTypes.number.isRequired,
-  canvasWidth: React.PropTypes.number.isRequired,
-  lineHeight: React.PropTypes.number.isRequired,
-  lineCount: React.PropTypes.number.isRequired
+  canvasTimeStart: PropTypes.number.isRequired,
+  canvasTimeEnd: PropTypes.number.isRequired,
+  canvasWidth: PropTypes.number.isRequired,
+  lineHeight: PropTypes.number.isRequired,
+  lineCount: PropTypes.number.isRequired
 }
 TodayLine.defaultProps = {
 }

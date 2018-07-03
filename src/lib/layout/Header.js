@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import moment from 'moment'
 
 import { iterateTimes, getNextUnit, getTrueScrollTop } from '../utils.js'
@@ -232,23 +233,23 @@ export default class Header extends Component {
 }
 
 Header.propTypes = {
-  // groups: React.PropTypes.array.isRequired,
-  // width: React.PropTypes.number.isRequired,
-  // lineHeight: React.PropTypes.number.isRequired,
-  // headerBackgroundColor: React.PropTypes.string.isRequired,
-  showPeriod: React.PropTypes.func.isRequired,
-  canvasTimeStart: React.PropTypes.number.isRequired,
-  canvasTimeEnd: React.PropTypes.number.isRequired,
-  canvasWidth: React.PropTypes.number.isRequired,
-  lineHeight: React.PropTypes.number.isRequired,
-  visibleTimeStart: React.PropTypes.number.isRequired,
-  visibleTimeEnd: React.PropTypes.number.isRequired,
-  // visibleTimeEnd: React.PropTypes.number.isRequired,
-  minUnit: React.PropTypes.string.isRequired,
-  timeSteps: React.PropTypes.object.isRequired,
-  width: React.PropTypes.number.isRequired,
-  fixedHeader: React.PropTypes.oneOf(['fixed', 'absolute', 'none']),
-  zIndex: React.PropTypes.number
+  // groups: PropTypes.array.isRequired,
+  // width: PropTypes.number.isRequired,
+  // lineHeight: PropTypes.number.isRequired,
+  // headerBackgroundColor: PropTypes.string.isRequired,
+  showPeriod: PropTypes.func.isRequired,
+  canvasTimeStart: PropTypes.number.isRequired,
+  canvasTimeEnd: PropTypes.number.isRequired,
+  canvasWidth: PropTypes.number.isRequired,
+  lineHeight: PropTypes.number.isRequired,
+  visibleTimeStart: PropTypes.number.isRequired,
+  visibleTimeEnd: PropTypes.number.isRequired,
+  // visibleTimeEnd: PropTypes.number.isRequired,
+  minUnit: PropTypes.string.isRequired,
+  timeSteps: PropTypes.object.isRequired,
+  width: PropTypes.number.isRequired,
+  fixedHeader: PropTypes.oneOf(['fixed', 'absolute', 'none']),
+  zIndex: PropTypes.number
 }
 Header.defaultProps = {
   fixedHeader: 'none',

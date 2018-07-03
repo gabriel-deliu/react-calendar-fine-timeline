@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 export default class SelectedLine extends Component {
   render () {
@@ -21,12 +22,12 @@ export default class SelectedLine extends Component {
   }
 }
 SelectedLine.propTypes = {
-  canvasTimeStart: React.PropTypes.number.isRequired,
-  canvasTimeEnd: React.PropTypes.number.isRequired,
-  selectedTime: React.PropTypes.number.isRequired,
-  canvasWidth: React.PropTypes.number.isRequired,
-  lineHeight: React.PropTypes.number.isRequired,
-  lineCount: React.PropTypes.number.isRequired
+  canvasTimeStart: PropTypes.number.isRequired,
+  canvasTimeEnd: PropTypes.number.isRequired,
+  selectedTime: PropTypes.number.isRequired,
+  canvasWidth: PropTypes.number.isRequired,
+  lineHeight: PropTypes.number.isRequired,
+  lineCount: PropTypes.number.isRequired
 }
 SelectedLine.defaultProps = {
 }

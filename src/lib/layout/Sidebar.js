@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import PropTypes from 'prop-types'
 import { _get, arraysEqual, getTrueScrollTop } from '../utils'
 
 export default class Sidebar extends Component {
@@ -144,13 +144,13 @@ export default class Sidebar extends Component {
 }
 
 Sidebar.propTypes = {
-  groups: React.PropTypes.oneOfType([React.PropTypes.array, React.PropTypes.object]).isRequired,
-  width: React.PropTypes.number.isRequired,
-  lineHeight: React.PropTypes.number.isRequired,
-  zIndex: React.PropTypes.number,
-  fixedHeader: React.PropTypes.oneOf(['fixed', 'absolute', 'none']),
-  keys: React.PropTypes.object.isRequired,
-  children: React.PropTypes.node
+  groups: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+  width: PropTypes.number.isRequired,
+  lineHeight: PropTypes.number.isRequired,
+  zIndex: PropTypes.number,
+  fixedHeader: PropTypes.oneOf(['fixed', 'absolute', 'none']),
+  keys: PropTypes.object.isRequired,
+  children: PropTypes.node
 }
 Sidebar.defaultProps = {
   fixedHeader: 'none',

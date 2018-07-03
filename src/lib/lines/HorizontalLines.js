@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 export default class HorizontalLines extends Component {
   shouldComponentUpdate (nextProps, nextState) {
@@ -35,9 +36,9 @@ export default class HorizontalLines extends Component {
 }
 
 HorizontalLines.propTypes = {
-  canvasWidth: React.PropTypes.number.isRequired,
-  lineHeight: React.PropTypes.number.isRequired,
-  lineCount: React.PropTypes.number.isRequired
+  canvasWidth: PropTypes.number.isRequired,
+  lineHeight: PropTypes.number.isRequired,
+  lineCount: PropTypes.number.isRequired
 }
 HorizontalLines.defaultProps = {
   borderWidth: 1
