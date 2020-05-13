@@ -1,6 +1,6 @@
 {
   "name": "react-calendar-fine-timeline",
-  "version": "0.12.36",
+  "version": "0.12.37",
   "description": "react calendar timeline",
   "main": "modules/index.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "npm:publish:next": "npm run release && cd build && npm publish --tag next",
     "npm:publish:latest": "npm run release && cd build && npm publish",
     "info": "npm info react-calendar-fine-timeline",
-    "start": "./node_modules/.bin/webpack-dev-server --inline --hot --host 0.0.0.0"
+    "start": "./node_modules/.bin/webpack-dev-server --inline --hot --host 0.0.0.0 --open"
   },
   "homepage": "https://github.com/gabriel-deliu/react-calendar-fine-timeline",
   "repository": {
@@ -88,7 +88,7 @@
     "webpack": "~1.13.3",
     "webpack-dev-server": "~1.16.2"
   },
-  "publishConfig" : {
-    "registry" : "http://192.168.5.104:8081/nexus/content/repositories/npm-internal/"
+  "publishConfig": {
+    "registry": "http://192.168.5.104:8081/nexus/content/repositories/npm-internal/"
   }
 }

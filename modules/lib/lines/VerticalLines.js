@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _utils = require('../utils.js');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -87,14 +91,14 @@ exports.default = VerticalLines;
 
 
 VerticalLines.propTypes = {
-  canvasTimeStart: _react2.default.PropTypes.number.isRequired,
-  canvasTimeEnd: _react2.default.PropTypes.number.isRequired,
-  canvasWidth: _react2.default.PropTypes.number.isRequired,
-  lineHeight: _react2.default.PropTypes.number.isRequired,
-  lineCount: _react2.default.PropTypes.number.isRequired,
-  minUnit: _react2.default.PropTypes.string.isRequired,
-  timeSteps: _react2.default.PropTypes.object.isRequired,
-  fixedHeader: _react2.default.PropTypes.string.isRequired
+  canvasTimeStart: _propTypes2.default.number.isRequired,
+  canvasTimeEnd: _propTypes2.default.number.isRequired,
+  canvasWidth: _propTypes2.default.number.isRequired,
+  lineHeight: _propTypes2.default.number.isRequired,
+  lineCount: _propTypes2.default.number.isRequired,
+  minUnit: _propTypes2.default.string.isRequired,
+  timeSteps: _propTypes2.default.object.isRequired,
+  fixedHeader: _propTypes2.default.string.isRequired
 };
 VerticalLines.defaultProps = {
   fixedHeader: 'none',

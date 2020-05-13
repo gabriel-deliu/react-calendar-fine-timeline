@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55,11 +59,11 @@ var SelectedLine = function (_Component) {
 exports.default = SelectedLine;
 
 SelectedLine.propTypes = {
-  canvasTimeStart: _react2.default.PropTypes.number.isRequired,
-  canvasTimeEnd: _react2.default.PropTypes.number.isRequired,
-  selectedTime: _react2.default.PropTypes.number.isRequired,
-  canvasWidth: _react2.default.PropTypes.number.isRequired,
-  lineHeight: _react2.default.PropTypes.number.isRequired,
-  lineCount: _react2.default.PropTypes.number.isRequired
+  canvasTimeStart: _propTypes2.default.number.isRequired,
+  canvasTimeEnd: _propTypes2.default.number.isRequired,
+  selectedTime: _propTypes2.default.number.isRequired,
+  canvasWidth: _propTypes2.default.number.isRequired,
+  lineHeight: _propTypes2.default.number.isRequired,
+  lineCount: _propTypes2.default.number.isRequired
 };
 SelectedLine.defaultProps = {};

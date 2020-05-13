@@ -59,7 +59,7 @@ export default class Header extends Component {
     this.setComponentTop()
   }
 
-  headerLabel (time, unit, width) {
+  headerLabel (time, unit, width) {    
     if (unit === 'year') {
       return time.format(width < 46 ? 'YY' : 'YYYY')
     } else if (unit === 'month') {
@@ -68,6 +68,8 @@ export default class Header extends Component {
       return time.format(width < 150 ? 'L' : 'dddd, LL')
     } else if (unit === 'hour') {
       return time.format(width < 50 ? 'HH' : width < 130 ? 'HH:00' : width < 150 ? 'L, HH:00' : 'dddd, LL, HH:00')
+    } else if (unit === 'minute') {
+      return time.format(width < 50 ? 'mm' : width < 130 ? 'HH:mm' : width < 150 ? 'L, HH:mm' : 'dddd, LL, HH:mm')     
     } else {
       return time.format('LLL')
     }

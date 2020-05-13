@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
@@ -139,6 +143,8 @@ var Header = function (_Component) {
         return time.format(width < 150 ? 'L' : 'dddd, LL');
       } else if (unit === 'hour') {
         return time.format(width < 50 ? 'HH' : width < 130 ? 'HH:00' : width < 150 ? 'L, HH:00' : 'dddd, LL, HH:00');
+      } else if (unit === 'minute') {
+        return time.format(width < 50 ? 'mm' : width < 130 ? 'HH:mm' : width < 150 ? 'L, HH:mm' : 'dddd, LL, HH:mm');
       } else {
         return time.format('LLL');
       }
@@ -289,23 +295,23 @@ exports.default = Header;
 
 
 Header.propTypes = {
-  // groups: React.PropTypes.array.isRequired,
-  // width: React.PropTypes.number.isRequired,
-  // lineHeight: React.PropTypes.number.isRequired,
-  // headerBackgroundColor: React.PropTypes.string.isRequired,
-  showPeriod: _react2.default.PropTypes.func.isRequired,
-  canvasTimeStart: _react2.default.PropTypes.number.isRequired,
-  canvasTimeEnd: _react2.default.PropTypes.number.isRequired,
-  canvasWidth: _react2.default.PropTypes.number.isRequired,
-  lineHeight: _react2.default.PropTypes.number.isRequired,
-  visibleTimeStart: _react2.default.PropTypes.number.isRequired,
-  visibleTimeEnd: _react2.default.PropTypes.number.isRequired,
-  // visibleTimeEnd: React.PropTypes.number.isRequired,
-  minUnit: _react2.default.PropTypes.string.isRequired,
-  timeSteps: _react2.default.PropTypes.object.isRequired,
-  width: _react2.default.PropTypes.number.isRequired,
-  fixedHeader: _react2.default.PropTypes.oneOf(['fixed', 'absolute', 'none']),
-  zIndex: _react2.default.PropTypes.number
+  // groups: PropTypes.array.isRequired,
+  // width: PropTypes.number.isRequired,
+  // lineHeight: PropTypes.number.isRequired,
+  // headerBackgroundColor: PropTypes.string.isRequired,
+  showPeriod: _propTypes2.default.func.isRequired,
+  canvasTimeStart: _propTypes2.default.number.isRequired,
+  canvasTimeEnd: _propTypes2.default.number.isRequired,
+  canvasWidth: _propTypes2.default.number.isRequired,
+  lineHeight: _propTypes2.default.number.isRequired,
+  visibleTimeStart: _propTypes2.default.number.isRequired,
+  visibleTimeEnd: _propTypes2.default.number.isRequired,
+  // visibleTimeEnd: PropTypes.number.isRequired,
+  minUnit: _propTypes2.default.string.isRequired,
+  timeSteps: _propTypes2.default.object.isRequired,
+  width: _propTypes2.default.number.isRequired,
+  fixedHeader: _propTypes2.default.oneOf(['fixed', 'absolute', 'none']),
+  zIndex: _propTypes2.default.number
 };
 Header.defaultProps = {
   fixedHeader: 'none',

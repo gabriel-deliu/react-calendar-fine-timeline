@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _function = require('react-pure-render/function');
 
 var _function2 = _interopRequireDefault(_function);
@@ -57,7 +61,7 @@ exports.default = InfoLabel;
 
 
 InfoLabel.propTypes = {
-  label: _react2.default.PropTypes.string.isRequired
+  label: _propTypes2.default.string.isRequired
 };
 InfoLabel.defaultProps = {
   label: ''

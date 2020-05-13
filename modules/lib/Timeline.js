@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
@@ -607,68 +611,68 @@ var ReactCalendarTimeline = function (_Component) {
 }(_react.Component);
 
 ReactCalendarTimeline.propTypes = {
-  groups: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.object]).isRequired,
-  items: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.object]).isRequired,
-  sidebarWidth: _react.PropTypes.number,
-  dragSnap: _react.PropTypes.number,
-  minResizeWidth: _react.PropTypes.number,
-  fixedHeader: _react.PropTypes.oneOf(['fixed', 'absolute', 'none']),
-  fullUpdate: _react.PropTypes.bool,
-  zIndexStart: _react.PropTypes.number,
-  lineHeight: _react.PropTypes.number,
-  headerLabelGroupHeight: _react.PropTypes.number,
-  headerLabelHeight: _react.PropTypes.number,
-  itemHeightRatio: _react.PropTypes.number,
+  groups: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.object]).isRequired,
+  items: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.object]).isRequired,
+  sidebarWidth: _propTypes2.default.number,
+  dragSnap: _propTypes2.default.number,
+  minResizeWidth: _propTypes2.default.number,
+  fixedHeader: _propTypes2.default.oneOf(['fixed', 'absolute', 'none']),
+  fullUpdate: _propTypes2.default.bool,
+  zIndexStart: _propTypes2.default.number,
+  lineHeight: _propTypes2.default.number,
+  headerLabelGroupHeight: _propTypes2.default.number,
+  headerLabelHeight: _propTypes2.default.number,
+  itemHeightRatio: _propTypes2.default.number,
 
-  minZoom: _react.PropTypes.number,
-  maxZoom: _react.PropTypes.number,
+  minZoom: _propTypes2.default.number,
+  maxZoom: _propTypes2.default.number,
 
-  clickTolerance: _react.PropTypes.number,
-  selectedTimeTolerance: _react.PropTypes.number,
-  selectedTime: _react.PropTypes.string,
+  clickTolerance: _propTypes2.default.number,
+  selectedTimeTolerance: _propTypes2.default.number,
+  selectedTime: _propTypes2.default.string,
 
-  canChangeGroup: _react.PropTypes.bool,
-  canMove: _react.PropTypes.bool,
-  canResize: _react.PropTypes.oneOf([true, false, 'left', 'right', 'both']),
-  useResizeHandle: _react.PropTypes.bool,
-  canSelect: _react.PropTypes.bool,
+  canChangeGroup: _propTypes2.default.bool,
+  canMove: _propTypes2.default.bool,
+  canResize: _propTypes2.default.oneOf([true, false, 'left', 'right', 'both']),
+  useResizeHandle: _propTypes2.default.bool,
+  canSelect: _propTypes2.default.bool,
 
-  stackItems: _react.PropTypes.bool,
+  stackItems: _propTypes2.default.bool,
 
-  traditionalZoom: _react.PropTypes.bool,
+  traditionalZoom: _propTypes2.default.bool,
 
-  itemTouchSendsClick: _react.PropTypes.bool,
+  itemTouchSendsClick: _propTypes2.default.bool,
 
-  onItemMove: _react.PropTypes.func,
-  onItemResize: _react.PropTypes.func,
-  onItemClick: _react.PropTypes.func,
-  onItemSelect: _react.PropTypes.func,
-  onCanvasClick: _react.PropTypes.func,
-  onItemDoubleClick: _react.PropTypes.func,
-  onItemContextMenu: _react.PropTypes.func,
-  onCanvasDoubleClick: _react.PropTypes.func,
+  onItemMove: _propTypes2.default.func,
+  onItemResize: _propTypes2.default.func,
+  onItemClick: _propTypes2.default.func,
+  onItemSelect: _propTypes2.default.func,
+  onCanvasClick: _propTypes2.default.func,
+  onItemDoubleClick: _propTypes2.default.func,
+  onItemContextMenu: _propTypes2.default.func,
+  onCanvasDoubleClick: _propTypes2.default.func,
 
-  moveResizeValidator: _react.PropTypes.func,
+  moveResizeValidator: _propTypes2.default.func,
 
-  dayBackground: _react.PropTypes.func,
+  dayBackground: _propTypes2.default.func,
 
-  style: _react.PropTypes.object,
-  keys: _react.PropTypes.object,
+  style: _propTypes2.default.object,
+  keys: _propTypes2.default.object,
 
-  timeSteps: _react.PropTypes.object,
+  timeSteps: _propTypes2.default.object,
 
-  defaultTimeStart: _react.PropTypes.object,
-  defaultTimeEnd: _react.PropTypes.object,
+  defaultTimeStart: _propTypes2.default.object,
+  defaultTimeEnd: _propTypes2.default.object,
 
-  visibleTimeStart: _react.PropTypes.number,
-  visibleTimeEnd: _react.PropTypes.number,
-  onTimeChange: _react.PropTypes.func,
-  onTimeSelected: _react.PropTypes.func,
-  onTimeInit: _react.PropTypes.func,
-  onBoundsChange: _react.PropTypes.func,
-  showArrows: _react.PropTypes.bool,
+  visibleTimeStart: _propTypes2.default.number,
+  visibleTimeEnd: _propTypes2.default.number,
+  onTimeChange: _propTypes2.default.func,
+  onTimeSelected: _propTypes2.default.func,
+  onTimeInit: _propTypes2.default.func,
+  onBoundsChange: _propTypes2.default.func,
+  showArrows: _propTypes2.default.bool,
 
-  children: _react.PropTypes.node
+  children: _propTypes2.default.node
 };
 ReactCalendarTimeline.defaultProps = {
   sidebarWidth: 150,

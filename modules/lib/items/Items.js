@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _Item = require('./Item');
 
 var _Item2 = _interopRequireDefault(_Item);
@@ -137,34 +141,34 @@ var Items = function (_Component) {
 }(_react.Component);
 
 Items.propTypes = {
-  groups: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.object]).isRequired,
-  items: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.object]).isRequired,
+  groups: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.object]).isRequired,
+  items: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.object]).isRequired,
 
-  canvasTimeStart: _react.PropTypes.number.isRequired,
-  canvasTimeEnd: _react.PropTypes.number.isRequired,
-  canvasWidth: _react.PropTypes.number.isRequired,
-  lineHeight: _react.PropTypes.number.isRequired,
+  canvasTimeStart: _propTypes2.default.number.isRequired,
+  canvasTimeEnd: _propTypes2.default.number.isRequired,
+  canvasWidth: _propTypes2.default.number.isRequired,
+  lineHeight: _propTypes2.default.number.isRequired,
 
-  dragSnap: _react.PropTypes.number,
-  minResizeWidth: _react.PropTypes.number,
-  selectedItem: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]),
+  dragSnap: _propTypes2.default.number,
+  minResizeWidth: _propTypes2.default.number,
+  selectedItem: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
 
-  canChangeGroup: _react.PropTypes.bool.isRequired,
-  canMove: _react.PropTypes.bool.isRequired,
-  canResize: _react.PropTypes.oneOf([true, false, 'left', 'right', 'both']),
-  canSelect: _react.PropTypes.bool,
+  canChangeGroup: _propTypes2.default.bool.isRequired,
+  canMove: _propTypes2.default.bool.isRequired,
+  canResize: _propTypes2.default.oneOf([true, false, 'left', 'right', 'both']),
+  canSelect: _propTypes2.default.bool,
 
-  keys: _react.PropTypes.object.isRequired,
+  keys: _propTypes2.default.object.isRequired,
 
-  moveResizeValidator: _react.PropTypes.func,
-  itemSelect: _react.PropTypes.func,
-  itemDrag: _react.PropTypes.func,
-  itemDrop: _react.PropTypes.func,
-  itemResizing: _react.PropTypes.func,
-  itemResized: _react.PropTypes.func,
+  moveResizeValidator: _propTypes2.default.func,
+  itemSelect: _propTypes2.default.func,
+  itemDrag: _propTypes2.default.func,
+  itemDrop: _propTypes2.default.func,
+  itemResizing: _propTypes2.default.func,
+  itemResized: _propTypes2.default.func,
 
-  onItemDoubleClick: _react.PropTypes.func,
-  onItemContextMenu: _react.PropTypes.func
+  onItemDoubleClick: _propTypes2.default.func,
+  onItemContextMenu: _propTypes2.default.func
 };
 Items.defaultProps = {};
 exports.default = Items;

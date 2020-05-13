@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _utils = require('../utils');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -185,13 +189,13 @@ exports.default = Sidebar;
 
 
 Sidebar.propTypes = {
-  groups: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.array, _react2.default.PropTypes.object]).isRequired,
-  width: _react2.default.PropTypes.number.isRequired,
-  lineHeight: _react2.default.PropTypes.number.isRequired,
-  zIndex: _react2.default.PropTypes.number,
-  fixedHeader: _react2.default.PropTypes.oneOf(['fixed', 'absolute', 'none']),
-  keys: _react2.default.PropTypes.object.isRequired,
-  children: _react2.default.PropTypes.node
+  groups: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.object]).isRequired,
+  width: _propTypes2.default.number.isRequired,
+  lineHeight: _propTypes2.default.number.isRequired,
+  zIndex: _propTypes2.default.number,
+  fixedHeader: _propTypes2.default.oneOf(['fixed', 'absolute', 'none']),
+  keys: _propTypes2.default.object.isRequired,
+  children: _propTypes2.default.node
 };
 Sidebar.defaultProps = {
   fixedHeader: 'none',
