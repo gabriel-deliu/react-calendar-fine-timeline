@@ -411,7 +411,8 @@ var ReactCalendarTimeline = function (_Component) {
         visibleTimeEnd: this.state.visibleTimeEnd,
         fixedHeader: this.props.fixedHeader,
         zIndex: this.props.zIndexStart + 1,
-        showPeriod: this.showPeriod });
+        showPeriod: this.showPeriod,
+        timezone: this.props.timezone });
     }
   }, {
     key: 'sidebar',

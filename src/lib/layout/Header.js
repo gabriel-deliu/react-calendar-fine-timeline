@@ -59,7 +59,23 @@ export default class Header extends Component {
     this.setComponentTop()
   }
 
-  headerLabel (time, unit, width) {    
+  setTimezone(time) {
+
+    const { timezone = 'utc' } = this.props;
+
+    switch(timezone) {
+      case 'local':
+        return time;
+      case 'utc':
+        return time.utc();
+      default:
+        return time.zone(timezone);
+    }
+    
+  }
+
+  headerLabel (receivedTime, unit, width) {    
+    const time = this.setTimezone(receivedTime);
     if (unit === 'year') {
       return time.format(width < 46 ? 'YY' : 'YYYY')
     } else if (unit === 'month') {
@@ -75,7 +91,8 @@ export default class Header extends Component {
     }
   }
 
-  subHeaderLabel (time, unit, width) {
+  subHeaderLabel (receivedTime, unit, width) {
+    const time = this.setTimezone(receivedTime);
     if (unit === 'year') {
       return time.format(width < 46 ? 'YY' : 'YYYY')
     } else if (unit === 'month') {

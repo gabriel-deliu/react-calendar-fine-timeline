@@ -133,8 +133,25 @@ var Header = function (_Component) {
       this.setComponentTop();
     }
   }, {
+    key: 'setTimezone',
+    value: function setTimezone(time) {
+      var _props$timezone = this.props.timezone,
+          timezone = _props$timezone === undefined ? 'utc' : _props$timezone;
+
+
+      switch (timezone) {
+        case 'local':
+          return time;
+        case 'utc':
+          return time.utc();
+        default:
+          return time.zone(timezone);
+      }
+    }
+  }, {
     key: 'headerLabel',
-    value: function headerLabel(time, unit, width) {
+    value: function headerLabel(receivedTime, unit, width) {
+      var time = this.setTimezone(receivedTime);
       if (unit === 'year') {
         return time.format(width < 46 ? 'YY' : 'YYYY');
       } else if (unit === 'month') {
@@ -151,7 +168,8 @@ var Header = function (_Component) {
     }
   }, {
     key: 'subHeaderLabel',
-    value: function subHeaderLabel(time, unit, width) {
+    value: function subHeaderLabel(receivedTime, unit, width) {
+      var time = this.setTimezone(receivedTime);
       if (unit === 'year') {
         return time.format(width < 46 ? 'YY' : 'YYYY');
       } else if (unit === 'month') {
