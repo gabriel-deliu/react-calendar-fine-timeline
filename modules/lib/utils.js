@@ -9,6 +9,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 exports._get = _get;
 exports._length = _length;
 exports.arraysEqual = arraysEqual;
+exports.setTimezone = setTimezone;
 exports.iterateTimes = iterateTimes;
 exports.getMinUnit = getMinUnit;
 exports.getNextUnit = getNextUnit;
@@ -50,8 +51,22 @@ function arraysEqual(array1, array2) {
   });
 }
 
-function iterateTimes(start, end, unit, timeSteps, callback) {
-  var time = (0, _moment2.default)(start).startOf(unit);
+function setTimezone(time) {
+  var timezone = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'utc';
+
+
+  switch (timezone) {
+    case 'local':
+      return time;
+    case 'utc':
+      return time.utc();
+    default:
+      return time.zone(timezone);
+  }
+}
+
+function iterateTimes(start, end, unit, timeSteps, callback, timezone) {
+  var time = setTimezone((0, _moment2.default)(start), timezone).startOf(unit);
 
   if (timeSteps[unit] && timeSteps[unit] > 1) {
     var value = time.get(unit);

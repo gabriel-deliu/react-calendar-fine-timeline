@@ -45,7 +45,7 @@ export default class VerticalLines extends Component {
                width: `${labelWidth}px`,
                height: `${height - headerHeight}px`
              }} />)
-    })
+    }, this.props.timezone)
 
     return (
       <div className='rct-vertical-lines'>

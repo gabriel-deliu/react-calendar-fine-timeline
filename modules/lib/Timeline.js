@@ -334,7 +334,8 @@ var ReactCalendarTimeline = function (_Component) {
         timeSteps: timeSteps,
         fixedHeader: this.props.fixedHeader,
         height: height,
-        headerHeight: headerHeight
+        headerHeight: headerHeight,
+        timezone: this.props.timezone
       });
     }
   }, {

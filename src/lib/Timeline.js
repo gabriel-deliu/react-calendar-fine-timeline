@@ -711,6 +711,7 @@ export default class ReactCalendarTimeline extends Component {
                      fixedHeader={this.props.fixedHeader}
                      height={height}
                      headerHeight={headerHeight}
+                     timezone={this.props.timezone}
       />
     )
   }

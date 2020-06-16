@@ -74,7 +74,7 @@ var VerticalLines = function (_Component) {
             width: labelWidth + 'px',
             height: height - headerHeight + 'px'
           } }));
-      });
+      }, this.props.timezone);
 
       return _react2.default.createElement(
         'div',

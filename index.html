@@ -78,8 +78,8 @@
       stackItems: true,
       itemHeightRatio: 0.75,
 
-      defaultTimeStart: moment().startOf('day').toDate(),
-      defaultTimeEnd: moment().startOf('day').add(1, 'day').toDate(),
+      defaultTimeStart: moment().utc().startOf('day').toDate(),
+      defaultTimeEnd: moment().utc().startOf('day').add(1, 'day').toDate(),
 
       keys: {
         groupIdKey: 'id',

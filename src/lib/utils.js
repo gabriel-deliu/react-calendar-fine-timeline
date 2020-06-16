@@ -17,16 +17,29 @@ export function arraysEqual (array1, array2) {
   })
 }
 
-export function iterateTimes (start, end, unit, timeSteps, callback) {
-  let time = moment(start).startOf(unit)
+export function setTimezone(time, timezone = 'utc') {
+
+  switch(timezone) {
+    case 'local':
+      return time;
+    case 'utc':
+      return time.utc();
+    default:
+      return time.zone(timezone);
+  }
+  
+}
+
+export function iterateTimes (start, end, unit, timeSteps, callback, timezone) {
+  let time = setTimezone(moment(start), timezone).startOf(unit);
 
   if (timeSteps[unit] && timeSteps[unit] > 1) {
     let value = time.get(unit)
-    time.set(unit, value - (value % timeSteps[unit]))
+    time.set(unit, value - (value % timeSteps[unit]))    
   }
 
   while (time.valueOf() < end) {
-    let nextTime = moment(time).add(timeSteps[unit] || 1, `${unit}s`)
+    let nextTime = moment(time).add(timeSteps[unit] || 1, `${unit}s`)    
     callback(time, nextTime)
     time = nextTime
   }

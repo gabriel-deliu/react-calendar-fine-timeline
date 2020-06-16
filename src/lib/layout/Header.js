@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 
-import { iterateTimes, getNextUnit, getTrueScrollTop } from '../utils.js'
+import { setTimezone, iterateTimes, getNextUnit, getTrueScrollTop } from '../utils.js'
 
 export default class Header extends Component {
   constructor (props) {
@@ -59,23 +59,8 @@ export default class Header extends Component {
     this.setComponentTop()
   }
 
-  setTimezone(time) {
-
-    const { timezone = 'utc' } = this.props;
-
-    switch(timezone) {
-      case 'local':
-        return time;
-      case 'utc':
-        return time.utc();
-      default:
-        return time.zone(timezone);
-    }
-    
-  }
-
   headerLabel (receivedTime, unit, width) {    
-    const time = this.setTimezone(receivedTime);
+    const time = setTimezone(receivedTime, this.props.timezone);
     if (unit === 'year') {
       return time.format(width < 46 ? 'YY' : 'YYYY')
     } else if (unit === 'month') {
@@ -92,7 +77,7 @@ export default class Header extends Component {
   }
 
   subHeaderLabel (receivedTime, unit, width) {
-    const time = this.setTimezone(receivedTime);
+    const time = setTimezone(receivedTime, this.props.timezone);
     if (unit === 'year') {
       return time.format(width < 46 ? 'YY' : 'YYYY')
     } else if (unit === 'month') {
@@ -189,7 +174,7 @@ export default class Header extends Component {
             {this.headerLabel(time, nextUnit, labelWidth)}
           </div>
         )
-      })
+      }, this.props.timezone)
     }
 
     iterateTimes(canvasTimeStart, canvasTimeEnd, minUnit, timeSteps, (time, nextTime) => {
@@ -218,7 +203,7 @@ export default class Header extends Component {
           {this.subHeaderLabel(time, minUnit, labelWidth)}
         </div>
       )
-    })
+    }, this.props.timezone)
 
     const { zIndex } = this.props
 
